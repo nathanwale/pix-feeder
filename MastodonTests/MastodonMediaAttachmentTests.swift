@@ -23,6 +23,14 @@ final class MastodonMediaAttachmentTests: XCTestCase
     {
         let attachment = attachments[0]
         XCTAssertEqual(attachment.id, "22345792")
+        XCTAssertEqual(attachment.type, MastodonMediaAttachment.MediaType.image)
+        XCTAssertEqual(attachment.previewUrl, URL(string: "https://files.mastodon.social/media_attachments/files/022/345/792/small/57859aede991da25.jpeg"))
+        XCTAssertEqual(attachment.type, MastodonMediaAttachment.MediaType.image)
+        XCTAssertEqual(attachment.remoteUrl, nil)
+        // text_url is deprecated
+        // meta is yet to be implemented
+        XCTAssertEqual(attachment.description, "test media description")
+        XCTAssertEqual(attachment.blurhash, "UFBWY:8_0Jxv4mx]t8t64.%M-:IUWGWAt6M}")
     }
     
     func testDecodingManyAttachments() throws
