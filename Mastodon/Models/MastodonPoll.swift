@@ -54,7 +54,7 @@ struct MastodonPoll: Codable
 /// MARK: - inner types
 extension MastodonPoll
 {
-    struct Options: Codable
+    struct Options: Codable, Equatable
     {
         /// Text value of this option
         var title: String
