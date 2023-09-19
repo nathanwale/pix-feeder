@@ -39,33 +39,33 @@ extension MastodonFilter
     typealias Identifier = String
     
     /// The contexts in which a filter can be applied
-    enum Context: Codable
+    enum Context: String, Codable
     {
         /// home timeline and lists
-        case home
+        case home = "home"
         
         /// notifications timeline
-        case notifications
+        case notifications = "notifications"
         
         /// public timelines
-        case `public`
+        case `public` = "public"
         
         /// expanded thread of a detailed status
-        case thread
+        case thread = "thread"
         
         /// when viewing a profile
-        case account
+        case account = "account"
     }
     
     /// The action to be taken when a status matches this filter
-    enum Action: Codable
+    enum Action: String, Codable
     {
         /// Show a warning that identifies the matching filter by title, and allow the user to expand the filtered status.
         /// This is the default (and unknown values should be treated as equivalent to warn).
-        case warn
+        case warn = "warn"
         
         /// Do not show this status if it is received
-        case hide
+        case hide = "hide"
     }
     
     /// A keyword, that if matched, should cause a filter Action
