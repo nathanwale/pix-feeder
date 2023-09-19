@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MastodonStatus
+class MastodonStatus: Codable
 {
     /// Status ID
     var id: Identifier!
@@ -139,7 +139,7 @@ extension MastodonStatus
     ///
     /// Mentioned User in a Status
     ///
-    struct Mention
+    struct Mention: Codable, Equatable
     {
         /// Account ID of the mentioned user
         var id: MastodonAccountId
@@ -158,7 +158,7 @@ extension MastodonStatus
     ///
     /// Tag attached to a Status
     ///
-    struct Tag
+    struct Tag: Codable, Equatable
     {
         /// Value of hashtag after `#` sign
         var name: String
