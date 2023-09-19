@@ -69,7 +69,7 @@ extension MastodonFilter
     }
     
     /// A keyword, that if matched, should cause a filter Action
-    struct Keyword: Codable
+    struct Keyword: Codable, Equatable
     {
         typealias Identifier = String
         
@@ -84,7 +84,7 @@ extension MastodonFilter
     }
     
     /// A status ID that a filter action should be taken on
-    struct Status: Codable
+    struct Status: Codable, Equatable
     {
         typealias Identifier = String
         
