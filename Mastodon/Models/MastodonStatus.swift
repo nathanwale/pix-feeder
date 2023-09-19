@@ -99,8 +99,8 @@ class MastodonStatus
     /// Has the current user pinned this Status? Optional
     var pinned: Bool?
     
-    /// Tthe current user's filter and keywords for this Status. Optional
-//    - filtered *optional*
+    /// The current user's filter and keywords for this Status. Optional
+    var filtered: [FilterResult]?
 }
 
     
@@ -165,6 +165,30 @@ extension MastodonStatus
         
         /// A link to this hashtag on the instance
         var url: URL
+    }
+    
+    ///
+    /// A filter whose keywords matched a given status
+    ///
+    struct FilterResult: Codable, Equatable
+    {
+        static func == (lhs: FilterResult, rhs: FilterResult) -> Bool
+        {
+            lhs.filter.id == rhs.filter.id
+            && lhs.keywordMatches == rhs.keywordMatches
+            && lhs.statusMatches == rhs.statusMatches
+        }
+        
+        /// The filter that was matched
+        var filter: MastodonFilter
+        
+        /// The keywords within the filter that were matched. Optional
+        var keywordMatches: [String]?
+        
+        /// The status ID within the filter that was matched. Optional
+        var statusMatches: [MastodonStatus.Identifier]?
+        
+        
     }
 }
 
