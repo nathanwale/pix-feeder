@@ -105,7 +105,7 @@ extension MastodonPreviewCard: Codable
         height = try values.decode(Int.self, forKey: .height)
         imageUrl = try? values.decode(URL.self, forKey: .imageUrl)
         embedUrl = try? values.decode(URL.self, forKey: .embedUrl)
-        blurhash = try values.decode(String?.self, forKey: .blurhash)
+        blurhash = try values.decodeIfPresent(String?.self, forKey: .blurhash) ?? nil
         history = try values.decodeIfPresent([History].self, forKey: .history) ?? []
     }
 }
