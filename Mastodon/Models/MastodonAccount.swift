@@ -15,7 +15,7 @@ typealias WebfingerAccount = String
     Represents a Mastodon Account
         - Decoded from API described at: https://docs.joinmastodon.org/entities/Account/
  */
-struct MastodonAccount
+class MastodonAccount: Codable
 {
     /// Account ID
     var id: MastodonAccountId
@@ -107,23 +107,5 @@ struct MastodonAccount
         var name: String
         var value: String
         var verifiedAt: Date?
-    }
-}
-
-
-// MARK: - Codable conformance
-extension MastodonAccount:
-    Hashable,
-    Identifiable,
-    Codable
-{
-    static func == (lhs: MastodonAccount, rhs: MastodonAccount) -> Bool
-    {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher)
-    {
-        hasher.combine(id)
     }
 }
