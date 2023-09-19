@@ -12,7 +12,7 @@ typealias MastodonMediaAttachmentId = String
 ///
 /// Media Attachment on a Mastodon Status
 ///
-struct MastodonMediaAttachment: Codable
+struct MastodonMediaAttachment: Codable, Equatable
 {
     /// Identifier of attachment in database
     var id: MastodonMediaAttachmentId
