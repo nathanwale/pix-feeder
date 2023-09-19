@@ -34,7 +34,7 @@ class MastodonStatus: Codable
     var spoilerText: String!
     
     /// Media attached to this Status
-    var mediaAttachments: MastodonMediaAttachment!
+    var mediaAttachments: [MastodonMediaAttachment]!
     
     /// Application a status was posted with
     var application: Application?
