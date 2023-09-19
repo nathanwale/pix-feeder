@@ -17,7 +17,7 @@ struct MastodonFilter: Codable
     var title: String
     
     /// The context in which a filter can be applied
-    var context: Context
+    var context: [Context]
     
     /// When the filter should expire. Otherwise `nil`
     var expiresAt: Date?
