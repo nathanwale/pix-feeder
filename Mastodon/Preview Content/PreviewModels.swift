@@ -31,5 +31,17 @@ extension MastodonStatus
         return previews[0]
     }
 }
+
+
+extension MastodonMediaAttachment
+{
+    /// Sample Attachments for previews
+    static var previews: [MastodonMediaAttachment] {
+        return JsonLoader.fromSample("multiple-attachments")
+    }
+    
+    /// Sample Image Attachment for previews
+    static var previewImageAttachment: MastodonMediaAttachment {
+        return previews[0]
     }
 }
