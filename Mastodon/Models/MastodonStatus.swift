@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MastodonStatus: Codable
+class MastodonStatus: Codable, Identifiable
 {
     /// Status ID
     var id: Identifier!
