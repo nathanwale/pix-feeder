@@ -22,12 +22,14 @@ extension JsonLoader
 extension MastodonStatus
 {
     /// Sample Statuses for previews
-    static var samples: [MastodonStatus] {
+    static var previews: [MastodonStatus] {
         return JsonLoader.fromSample("multiple-statuses")
     }
     
     /// Sample Status for previews
-    static var sample: MastodonStatus {
-        return samples[0]
+    static var preview: MastodonStatus {
+        return previews[0]
+    }
+}
     }
 }
