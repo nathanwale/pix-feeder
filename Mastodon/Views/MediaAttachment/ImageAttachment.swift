@@ -7,17 +7,12 @@
 
 import SwiftUI
 
-struct ImageAttachment: View {
+struct ImageAttachment: View
+{
     var attachment: MastodonMediaAttachment
     var body: some View
     {
-        AsyncImage(url: attachment.url) {
-            $0
-                .resizable()
-                .scaledToFit()
-        } placeholder: {
-            ProgressView()
-        }
+        WebImage(url: attachment.url)
     }
 }
 

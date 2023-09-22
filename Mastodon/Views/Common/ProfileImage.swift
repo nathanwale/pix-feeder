@@ -15,13 +15,9 @@ struct ProfileImage: View
     
     var body: some View
     {
-        AsyncImage(url: url) {
-            $0.resizable()
-        } placeholder: {
-            ProgressView()
-        }
-        .frame(width: size.rawValue, height: size.rawValue)
-        .cornerRadius(5)
+        WebImage(url: url)
+            .frame(width: size.rawValue, height: size.rawValue)
+            .cornerRadius(5)
     }
     
     enum Size: CGFloat
