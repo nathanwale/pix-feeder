@@ -11,12 +11,14 @@ struct MediaAttachmentView: View
 {
     var attachment: MastodonMediaAttachment
     
+    @State private var showFullDescription = false
+    
     var body: some View
     {
         VStack(spacing: 0)
         {
             attachmentView
-            tools
+            description
         }
     }
     
@@ -40,20 +42,31 @@ struct MediaAttachmentView: View
         }
     }
     
-    ///
-    var tools: some View
+    /// Description, if present
+    @ViewBuilder
+    var description: some View
     {
-        VStack(alignment: .trailing)
+        if let text = attachment.description,
+           text != ""
         {
-            HStack
+            Button(action: { showFullDescription.toggle() })
             {
-                Spacer()
-                Icon.altText.image
+                VStack(alignment: .center)
+                {
+                    HStack(alignment: .top)
+                    {
+                        Icon.altText.image
+                        Text(text)
+                            .lineLimit(showFullDescription ? nil : 1)
+                            
+                        Spacer()
+                    }
+                    .padding(5)
+                }
+                .background(Color.primary)
+                .foregroundColor(.white)
             }
-            .padding(5)
         }
-        .background(Color.primary)
-        .foregroundColor(.white)
     }
 }
 
