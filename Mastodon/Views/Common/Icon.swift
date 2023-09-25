@@ -13,7 +13,7 @@ import SwiftUI
 enum Icon: String
 {
     case reblog = "arrow.uturn.up.circle.fill"
-    case altText = "text.viewfinder"
+    case altText = "text.bubble.fill"
 }
 
 ///
