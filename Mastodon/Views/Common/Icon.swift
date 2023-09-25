@@ -14,6 +14,7 @@ enum Icon: String
 {
     case reblog = "arrow.uturn.up.circle.fill"
     case altText = "text.bubble.fill"
+    case showText = "text.magnifyingglass"
 }
 
 ///
