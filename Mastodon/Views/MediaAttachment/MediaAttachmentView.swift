@@ -49,23 +49,10 @@ struct MediaAttachmentView: View
         if let text = attachment.description,
            text != ""
         {
-            Button(action: { showFullDescription.toggle() })
-            {
-                VStack(alignment: .center)
-                {
-                    HStack(alignment: .top)
-                    {
-                        Icon.altText.image
-                        Text(text)
-                            .lineLimit(showFullDescription ? nil : 1)
-                            
-                        Spacer()
-                    }
-                    .padding(5)
-                }
-                .background(Color.primary)
+            ExpandableText(text)
+                .padding(5)
+                .background(Color.black)
                 .foregroundColor(.white)
-            }
         }
     }
 }
