@@ -17,11 +17,16 @@ enum Icon: String
     case showText = "text.magnifyingglass"
 }
 
-///
+// Icon extensions
 extension Icon
 {
     /// Icon as SwiftUI Image
     var image: some View {
         Image(systemName: self.rawValue)
+    }
+    
+    /// Icon as ImageResource
+    var resource: ImageResource {
+        ImageResource(name: rawValue, bundle: Bundle.main)
     }
 }
