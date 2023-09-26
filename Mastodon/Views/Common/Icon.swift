@@ -12,7 +12,7 @@ import SwiftUI
 ///
 enum Icon: String
 {
-    case reblog = "arrow.uturn.up.circle.fill"
+    case reblog = "arrow.uturn.up.circle"
     case altText = "text.bubble.fill"
     case showText = "text.magnifyingglass"
     case replies = "bubble.left.and.bubble.right"
