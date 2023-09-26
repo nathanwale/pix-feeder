@@ -104,20 +104,17 @@ struct StatusView: View
 
 
 // MARK: - previews
-struct StatusView_Previews: PreviewProvider
+#Preview
 {
-    static var previews: some View
+    ScrollView
     {
-        ScrollView
+        VStack
         {
-            VStack
+            ForEach(MastodonStatus.previews[0...5])
             {
-                ForEach(MastodonStatus.previews[0...5])
-                {
-                    preview in
-                    StatusView(status: preview)
-                }
-            }.padding(10)
-        }
+                preview in
+                StatusView(status: preview)
+            }
+        }.padding(10)
     }
 }
