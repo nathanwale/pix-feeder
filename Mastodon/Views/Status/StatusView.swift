@@ -32,7 +32,10 @@ struct StatusView: View
             profileStack
             content
             mediaAttachments
+            StatusToolBar(status: status)
+            Divider()
         }
+        .padding(.vertical, 20)
     }
     
     /// Profile image
