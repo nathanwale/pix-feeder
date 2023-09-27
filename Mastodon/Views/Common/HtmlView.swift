@@ -24,7 +24,7 @@ struct HtmlView: View
         let htmlDoc = style + html
         
         let nsAttributedString = try! NSAttributedString(
-            data: htmlDoc.data(using: .utf8)!,
+            data: htmlDoc.data(using: .utf16)!,
             options: [
                 .documentType: NSAttributedString.DocumentType.html
             ],
