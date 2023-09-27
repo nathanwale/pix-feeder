@@ -95,7 +95,7 @@ extension StatusToolBar
     }
 }
 
-#Preview {
+#Preview("Status tool bar", traits: .fixedLayout(width: 400, height: 50)) {
     StatusToolBar(status: MastodonStatus.preview)
         .padding(20)
 }
