@@ -24,6 +24,12 @@ struct StatusView: View
         status.reblog?.account ?? status.account
     }
     
+    // Init
+    init(_ status: MastodonStatus)
+    {
+        self.status = status
+    }
+    
     var body: some View
     {
         VStack(alignment: .leading)
