@@ -122,7 +122,7 @@ struct StatusView: View
             ForEach(MastodonStatus.previews[0...5])
             {
                 preview in
-                StatusView(status: preview)
+                StatusView(preview)
             }
         }.padding(10)
     }
