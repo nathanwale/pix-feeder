@@ -39,9 +39,8 @@ struct StatusView: View
             content
             mediaAttachments
             StatusToolBar(status: status)
-            Divider()
         }
-        .padding(.vertical, 20)
+        .padding(0)
     }
     
     /// Profile image
