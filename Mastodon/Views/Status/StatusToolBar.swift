@@ -36,9 +36,13 @@ struct StatusToolBar: View
             Divider()
             Spacer()
             Button("Reply", systemImage: Icon.reply.rawValue, action: replyToStatus)
-                .labelStyle(.titleAndIcon)
+                .labelStyle(.iconOnly)
         }
         .labelStyle(.iconOnly)
+        .padding(.vertical, 5)
+        .padding(.horizontal, 10)
+        .background(Color(uiColor: .tertiarySystemFill))
+        .fixedSize(horizontal: false, vertical: true)
     }
     
     struct ButtonWithCount: View
