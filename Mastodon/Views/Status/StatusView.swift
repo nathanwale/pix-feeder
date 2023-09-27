@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+///
+/// Represents a single Mastodon Status
+/// - status: The Status to be displayed
+///
 struct StatusView: View
 {
     /// The Status for this view
@@ -30,6 +34,7 @@ struct StatusView: View
         self.status = status
     }
     
+    // Body
     var body: some View
     {
         VStack(alignment: .leading)
