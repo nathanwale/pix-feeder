@@ -11,7 +11,7 @@ import SwiftUI
 /// Represents a single Mastodon Status
 /// - status: The Status to be displayed
 ///
-struct StatusView: View
+struct StatusPost: View
 {
     /// The Status for this view
     var status: MastodonStatus
@@ -126,7 +126,7 @@ struct StatusView: View
             ForEach(MastodonStatus.previews[0...5])
             {
                 preview in
-                StatusView(preview)
+                StatusPost(preview)
             }
         }.padding(10)
     }
