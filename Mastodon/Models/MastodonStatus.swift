@@ -193,4 +193,17 @@ extension MastodonStatus
 }
 
 
+// MARK: - Hashable conformance
+extension MastodonStatus: Hashable, Equatable
+{
+    static func == (lhs: MastodonStatus, rhs: MastodonStatus) -> Bool 
+    {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) 
+    {
+        hasher.combine(id)
+    }
+}
 
