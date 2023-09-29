@@ -39,9 +39,12 @@ struct StatusPost: View
     {
         VStack(alignment: .leading)
         {
-            rebloggedBy
-            profileStack
-            content
+            VStack(alignment: .leading)
+            {
+                rebloggedBy
+                profileStack
+                content
+            }.padding(.horizontal)
             mediaAttachments
             StatusToolBar(status: status)
         }
@@ -65,6 +68,7 @@ struct StatusPost: View
                 // Display name
                 Text(account.displayName)
                     .font(.headline)
+                    .lineLimit(1)
                 HStack
                 {
                     // Webfinger account uri: eg. "@username@instance.org"
