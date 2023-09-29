@@ -187,8 +187,18 @@ extension MastodonStatus
         
         /// The status ID within the filter that was matched. Optional
         var statusMatches: [MastodonStatus.Identifier]?
+    }
+    
+    ///
+    /// The context of a Status in a Mastodon thread
+    ///
+    struct Context: Codable
+    {
+        /// The prior statuses in a thread
+        var ancestors: [MastodonStatus]
         
-        
+        /// The later statuses in a thread
+        var descendants: [MastodonStatus]
     }
 }
 
