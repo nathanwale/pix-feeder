@@ -30,6 +30,11 @@ extension MastodonStatus
     static var preview: MastodonStatus {
         return previews[0]
     }
+    
+    /// Sample Context
+    static var previewContext: MastodonStatus.Context {
+        return JsonLoader.fromSample("status-context")
+    }
 }
 
 
@@ -44,4 +49,5 @@ extension MastodonMediaAttachment
     static var previewImageAttachment: MastodonMediaAttachment {
         return previews[0]
     }
+
 }
