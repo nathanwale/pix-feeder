@@ -36,7 +36,7 @@ struct StatusToolBar: View
             Divider()
             Spacer()
             Button("Reply", systemImage: Icon.reply.rawValue, action: replyToStatus)
-                .labelStyle(.iconOnly)
+                .labelStyle(.titleAndIcon)
         }
         .labelStyle(.iconOnly)
         .padding(.vertical, 5)
