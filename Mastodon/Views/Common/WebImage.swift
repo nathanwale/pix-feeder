@@ -17,7 +17,7 @@ struct WebImage: View
         CachedAsyncImage(url: url) {
             $0.resizable()
         } placeholder: {
-            ProgressView()
+            Color.purple.opacity(0.1)
         }
         .scaledToFit()
     }
