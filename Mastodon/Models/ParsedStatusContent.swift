@@ -105,6 +105,7 @@ struct ParsedStatusContent
 // MARK: - attributed strings
 extension ParsedStatusContent
 {
+    /// Parsed Content converted to a styled AttributedString
     var attributedString: AttributedString?
     {
         tokens?.reduce(AttributedString()) {
@@ -113,8 +114,18 @@ extension ParsedStatusContent
     }
 }
 
+// Tokens
 extension ParsedStatusContent.Token
 {
+    // Paragraph style to be attached for link truncation
+    private var paragraphStyle: NSMutableParagraphStyle
+    {
+        let style = NSMutableParagraphStyle()
+        style.lineBreakMode = .byTruncatingTail
+        return style
+    }
+    
+    /// Convert this token to a styled AttributedString
     var attributedString: AttributedString
     {
         switch self {
@@ -136,9 +147,9 @@ extension ParsedStatusContent.Token
             case .link(let url):
                 if let url {
                     var link = AttributedString(url.description)
-                    let paraStyle = NSMutableParagraphStyle()
-                    paraStyle.lineBreakMode = .byTruncatingTail
-                    link.paragraphStyle = paraStyle
+//                    -- Below doesn't seem to have any effect and causes a warning:
+//                    -- "Conformance of 'NSParagraphStyle' to 'Sendable' is unavailable"
+//                    link.paragraphStyle = paragraphStyle
                     link.link = url
                     return link
                 } else {
