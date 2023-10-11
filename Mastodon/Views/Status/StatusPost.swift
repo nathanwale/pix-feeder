@@ -44,7 +44,9 @@ struct StatusPost: View
                 rebloggedBy
                 profileStack
                 content
-            }.padding(.horizontal)
+            }
+            .padding(.horizontal)
+            
             mediaAttachments
             StatusToolBar(status: status)
         }
