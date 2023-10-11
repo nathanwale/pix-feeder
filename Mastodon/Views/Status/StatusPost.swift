@@ -125,15 +125,12 @@ struct StatusPost: View
 // MARK: - previews
 #Preview
 {
-    ScrollView
+    List(MastodonStatus.previews)
     {
-        VStack
-        {
-            ForEach(MastodonStatus.previews[0...5])
-            {
-                preview in
-                StatusPost(preview)
-            }
-        }.padding(10)
+        status in
+        StatusPost(status)
+            .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0))
+            .listRowSeparator(.hidden)
     }
+    .listStyle(.plain)
 }
