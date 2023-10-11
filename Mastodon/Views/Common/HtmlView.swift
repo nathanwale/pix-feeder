@@ -7,36 +7,83 @@
 
 import SwiftUI
 
-struct HtmlView: View
+struct HtmlView: UIViewRepresentable
 {
+    typealias UIViewType = UITextView
+    
     let html: String
     
-    private let style = """
-        <style>
-            * {
-                font-family: sans-serif;
-            }
-        </style>
-    """
+    private let options: [NSAttributedString.DocumentReadingOptionKey: Any]  = [
+        .documentType: NSAttributedString.DocumentType.html
+    ]
     
-    private var attributedString: AttributedString
+    private var styledHtml: String
     {
-        let htmlDoc = style + html
+        "<div style='font-family: sans-serif; font-size: \(UIFont.systemFontSize)'>\(html)</div>"
+    }
         
-        let nsAttributedString = try! NSAttributedString(
-            data: htmlDoc.data(using: .utf16)!,
-            options: [
-                .documentType: NSAttributedString.DocumentType.html
-            ],
-            documentAttributes: nil
-        )
+    private var attributedString: NSAttributedString
+    {
+        return try! NSAttributedString(
+            data: styledHtml.data(using: .unicode)!,
+            options: options,
+            documentAttributes: nil)
+    }
         
-        return AttributedString(nsAttributedString)
+    func makeUIView(context: Context) -> UIViewType 
+    {
+        let view = UIViewType()
+        view.textContainer.lineFragmentPadding = 0
+        view.textContainerInset = .zero
+        return view
     }
     
-    var body: some View
+    func updateUIView(_ uiView: UIViewType, context: Context) 
     {
-        Text(attributedString)
+        uiView.isEditable = false
+        uiView.attributedText = attributedString
+        uiView.isScrollEnabled = false
+    }
+    
+    ///
+    /// Calculate an appropriate size for this view
+    ///
+    // Stolen from https://stackoverflow.com/questions/60732680/how-to-get-dynamic-height-for-uitextview-in-swiftui
+    func sizeThatFits(
+        _ proposal: ProposedViewSize,
+        uiView: UITextView,
+        context: Context) -> CGSize?
+    {
+        let dimensions = proposal.replacingUnspecifiedDimensions(
+            by: .init(
+                width: 0,
+                height: CGFloat.greatestFiniteMagnitude
+            )
+        )
+        
+        let calculatedRect = calculateViewHeight(
+            containerSize: dimensions,
+            attributedString: uiView.attributedText
+        )
+        
+        return calculatedRect.size
+    }
+    
+    // Stolen from https://stackoverflow.com/questions/60732680/how-to-get-dynamic-height-for-uitextview-in-swiftui
+    func calculateViewHeight(
+        containerSize: CGSize,
+        attributedString: NSAttributedString) -> CGRect
+    {
+        let rect = attributedString.boundingRect(
+            with: .init(width: containerSize.width, height: containerSize.height),
+            options: [
+                .usesLineFragmentOrigin,
+                .usesFontLeading,
+            ],
+            context: nil
+        )
+        
+        return rect
     }
 }
 
