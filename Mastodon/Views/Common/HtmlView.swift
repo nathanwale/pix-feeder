@@ -91,8 +91,16 @@ struct HtmlView_Previews: PreviewProvider
 {
     static var previews: some View
     {
-        HtmlView(html: """
+        let html = """
         <p>The Pre-Raphaelites obsession with the wombat. <a href="https://mastodon.social/tags/australia" class="mention hashtag" rel="tag">#<span>australia</span></a> <a href="https://mastodon.social/tags/animals" class="mention hashtag" rel="tag">#<span>animals</span></a><br /><a href="https://publicdomainreview.org/essay/o-uommibatto-how-the-pre-raphaelites-became-obsessed-with-the-wombat/" target="_blank" rel="nofollow noopener noreferrer" translate="no"><span class="invisible">https://</span><span class="ellipsis">publicdomainreview.org/essay/o</span><span class="invisible">-uommibatto-how-the-pre-raphaelites-became-obsessed-with-the-wombat/</span></a></p>
-        """)
+        """
+        
+        let htmlView = HtmlView(html: html)
+        
+        List
+        {
+            HtmlView(html: "Love the picture of the wombat hooning past the pyramids")
+            htmlView
+        }
     }
 }
