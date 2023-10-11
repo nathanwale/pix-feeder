@@ -10,26 +10,57 @@ import SwiftUI
 struct StatusDetail: View 
 {
     let status: MastodonStatus
+    let context: MastodonStatus.Context?
     
-    init(_ status: MastodonStatus)
+    var ancestors: [MastodonStatus]
     {
-        self.status = status
+        context?.ancestors ?? []
     }
     
+    var descendants: [MastodonStatus]
+    {
+        context?.descendants ?? []
+    }
+    
+    init(_ status: MastodonStatus, context: MastodonStatus.Context? = nil)
+    {
+        self.status = status
+        self.context = context
+    }
+        
     var body: some View 
+    {
+        ScrollView
+        {
+            VStack
+            {
+                statusList(ancestors)
+                StatusPost(status)
+                    .background(Color.accentColor.opacity(0.1))
+                Text("Replies").font(.headline)
+                statusList(descendants)
+            }
+            .navigationTitle("Post by \(status.account.displayName)")
+        }
+    }
+    
+    func statusList(_ statuses: [MastodonStatus]) -> some View
     {
         VStack
         {
-            StatusPost(status)
-            Text("All the replies...")
-            Spacer()
+            ForEach(statuses)
+            {
+                StatusPost($0)
+            }
         }
-        .navigationTitle("Post by \(status.account.displayName)")
     }
 }
 
 #Preview 
 {
-    StatusDetail(MastodonStatus.preview)
-        .padding(20)
+    StatusDetail(
+        MastodonStatus.preview,
+        context: MastodonStatus.previewContext
+    )
+    .padding(20)
 }
