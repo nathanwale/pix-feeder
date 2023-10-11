@@ -88,7 +88,7 @@ struct StatusPost: View
     /// Content of post
     var content: some View
     {
-        HtmlView(html: post.content)
+        StatusContent(post.content)
     }
     
     /// Reblogged by, if reblog exists
