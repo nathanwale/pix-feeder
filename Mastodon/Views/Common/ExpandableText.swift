@@ -43,12 +43,14 @@ struct ExpandableText: View
                 .onAppear() {
                     guard isTruncated == nil else { return }
                     isTruncated = false
+                    print("Text fits in one line")
                 }
             Color.clear
                 .hidden()
                 .onAppear() {
                     guard isTruncated == nil else { return }
                     isTruncated = true
+                    print("Text DOESN'T fit in one line")
                 }
         }
     }
@@ -79,14 +81,18 @@ struct ExpandableText: View
     }
 }
 
-#Preview {
-    VStack
+#Preview 
+{
+    NavigationStack
     {
-        ExpandableText("""
+        VStack
+        {
+            ExpandableText("""
         This is some long text, that may get truncated if it's too long. This is to let the user know there is something to read here, without taking too much room of the UI. If they want to read the full text, then they can press on it to expand it.
         """)
-        Divider()
-        ExpandableText("An example of a short one.")
+            Divider()
+            ExpandableText("An example of a short one.")
+        }
+        .padding(10)
     }
-    .padding(10)
 }
