@@ -116,6 +116,27 @@ struct ParsedStatusContent
         }
         return try parseWebLink(node)
     }
+    
+    /// Parse H-Card
+    /// See: https://microformats.org/wiki/h-card
+    private func parseMention(_ node: Node) throws -> Token
+    {
+        // eg. 1: <span class=\"h-card\" translate=\"no\"><a href=\"https://wandering.shop/@annaleen\" class=\"u-url mention\">@<span>annaleen</span></a></span>
+        // eg. 2: <span class=\"h-card\"><a href=\"https://chitter.xyz/@codl\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>codl</span></a></span>
+        guard let innerAnchor = node.getChildNodes().first(where: { $0.nodeName() == "a" }) else {
+            throw Error.failedToParseMentionLink(node: node)
+        }
+        guard let innerSpan = innerAnchor.getChildNodes().first(where: { $0.nodeName() == "span" }) else {
+            print(node.getChildNodes())
+            throw Error.failedToParseMentionName(node: innerAnchor)
+        }
+        
+        let urlString = try innerAnchor.attr("href")
+        let url = URL(string: urlString)
+        let name = try innerSpan.getChildNodes().first!.outerHtml()
+        
+        return .mention(name: name, url: url)
+    }
 
     /// Parse DOM nodes found in `self.html`
     private func parseNode(_ node: Node) throws -> Token
@@ -128,6 +149,14 @@ struct ParsedStatusContent
             case "a":
                 // web link or hashtag
                 return try parseAnchor(node)
+            case "span":
+                // may be a mention, check for h-card
+                if let className = try? node.attr("class"),
+                   className == "h-card" {
+                    return try parseMention(node)
+                }
+                // else continue
+                fallthrough
             default:
                 // assume plain text
                 let text = (try? node.outerHtml()) ?? ""
@@ -195,6 +224,16 @@ extension ParsedStatusContent.Token
                 } else {
                     return AttributedString("<<invalid url>>")
                 }
+                
+            // Mentions
+            case .mention(let name, let url):
+                var mention = AttributedString("@\(name)")
+                if let url {
+                    mention.link = url
+                    mention.foregroundColor = .green
+                    mention.font = mention.font?.bold()
+                }
+                return mention
         }
     }
     
