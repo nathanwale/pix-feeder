@@ -34,7 +34,8 @@ struct StatusContent: View
 
 
 // MARK: - Previews
-#Preview {
+#Preview 
+{
     let contents = MastodonStatus.previews.map {
         c in
         c.reblog?.content ?? c.content ?? ""
