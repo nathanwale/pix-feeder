@@ -22,6 +22,33 @@ struct ParsedStatusContent
         case text(String)
         case hashTag(name: String, url: URL?)
         case link(url: URL?)
+        case mention(name: String, url: URL?)
+    }
+    
+    /// Errors
+    enum Error: Swift.Error, CustomStringConvertible
+    {
+        case failedToParseMentionLink(node: Node)
+        case failedToParseMentionName(node: Node)
+        
+        
+        var description: String {
+            switch self {
+                case .failedToParseMentionLink(let node):
+                    return message("Failed to parse link in Mention. No inner anchor found.", node: node)
+                case .failedToParseMentionName(let node):
+                    return message("Failed to parse name in Mention", node: node)
+            }
+        }
+        
+        func message(_ msg: String, node: Node) -> String
+        {
+            let html = try? node.outerHtml()
+            if let html {
+                return "\(msg)\nNode:\n\(html)"
+            }
+            return "\(msg)\nNo node information available"
+        }
     }
     
     /// The Status content as an HTML string
@@ -29,7 +56,13 @@ struct ParsedStatusContent
     
     /// Tokens from parsing `self.html`
     var tokens: [Token]? {
-        try? parseContent()
+        do {
+            return try parseContent()
+        } catch {
+            print("Error parsing content:")
+            print(error)
+        }
+        return nil
     }
     
     /// Parse the content of `self.html` as `ParsedStatusContent.Token`s
@@ -44,7 +77,7 @@ struct ParsedStatusContent
         if let paras {
             for (i, p) in paras.enumerated() {
                 for child in p.getChildNodes() {
-                    tokens.append(parseNode(child))
+                    try tokens.append(parseNode(child))
                 }
                 // two linebreaks for end of paragraphs,
                 // unless we're at the end
@@ -59,42 +92,44 @@ struct ParsedStatusContent
     }
     
     /// Parse a HashTag link as `Token`s
-    private func parseHashLink(_ node: Node) -> Token
+    private func parseHashLink(_ node: Node) throws -> Token
     {
         let innerSpan = node.getChildNodes().first { $0.nodeName() == "span" }
-        let hashTagName = (try? innerSpan?.getChildNodes().first?.outerHtml()) ?? "NOSPAN"
-        let hashTagLink = (try? node.attr("href")) ?? ""
+        let hashTagName = try innerSpan!.getChildNodes().first!.outerHtml()
+        let hashTagLink = try node.attr("href")
         return .hashTag(name: hashTagName, url: URL(string: hashTagLink))
     }
 
     /// Parse an external web link as `Token`s
-    private func parseWebLink(_ node: Node) -> Token
+    private func parseWebLink(_ node: Node) throws -> Token
     {
-        let link = (try? node.attr("href")) ?? ""
+        let link = try node.attr("href")
         return .link(url: URL(string: link))
     }
 
     /// Parse `<a>` tags from content
-    private func parseAnchor(_ node: Node) -> Token
+    private func parseAnchor(_ node: Node) throws -> Token
     {
-        if let relAttr = try? node.attr("rel"),
-           relAttr == "tag"
+        if try node.attr("rel") == "tag"
         {
-            return parseHashLink(node)
+            return try parseHashLink(node)
         }
-        return parseWebLink(node)
+        return try parseWebLink(node)
     }
 
     /// Parse DOM nodes found in `self.html`
-    private func parseNode(_ node: Node) -> Token
+    private func parseNode(_ node: Node) throws -> Token
     {
         switch node.nodeName()
         {
             case "br":
+                // line break
                 return .lineBreak
             case "a":
-                return parseAnchor(node)
+                // web link or hashtag
+                return try parseAnchor(node)
             default:
+                // assume plain text
                 let text = (try? node.outerHtml()) ?? ""
                 return .text(text)
         }
@@ -128,13 +163,17 @@ extension ParsedStatusContent.Token
     /// Convert this token to a styled AttributedString
     var attributedString: AttributedString
     {
-        switch self {
+        switch self 
+        {
+            // Line breaks
             case .lineBreak:
                 return AttributedString("\n")
                 
+            // Plain text
             case .text(let text):
                 return AttributedString(text)
-                
+            
+            // Hash tags
             case .hashTag(let name, let url):
                 var hashTag = AttributedString("#\(name)")
                 if let url {
@@ -144,6 +183,7 @@ extension ParsedStatusContent.Token
                 }
                 return hashTag
                 
+            // Web link
             case .link(let url):
                 if let url {
                     var link = AttributedString(url.description)
