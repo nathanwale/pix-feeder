@@ -10,7 +10,7 @@ import SwiftUI
 ///
 /// Common icons for use in UI
 ///
-enum Icon: String
+enum Icon: String, CaseIterable
 {
     case reblog = "arrow.uturn.up.circle"
     case altText = "text.bubble.fill"
@@ -32,5 +32,24 @@ extension Icon
     /// Icon as ImageResource
     var resource: ImageResource {
         ImageResource(name: rawValue, bundle: Bundle.main)
+    }
+}
+
+
+// MARK: - previews
+#Preview
+{
+    let grids = [GridItem(), GridItem()]
+    return LazyVGrid(columns: grids)
+    {
+        ForEach(Icon.allCases, id: \.self)
+        {
+            icon in
+            VStack
+            {
+                icon.image
+                Text(icon.rawValue)
+            }
+        }
     }
 }
