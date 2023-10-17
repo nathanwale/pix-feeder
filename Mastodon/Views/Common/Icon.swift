@@ -19,6 +19,8 @@ enum Icon: String, CaseIterable
     case reply = "plus.bubble"
     case favourite = "star"
     case share = "square.and.arrow.up"
+    case smile = "face.smiling"
+    case notFound = "questionmark.square.dashed"
 }
 
 // Icon extensions
@@ -27,6 +29,11 @@ extension Icon
     /// Icon as SwiftUI Image
     var image: some View {
         Image(systemName: self.rawValue)
+    }
+    
+    /// Icon as UIImage
+    var uiImage: UIImage? {
+        UIImage(systemName: self.rawValue)
     }
     
     /// Icon as ImageResource
@@ -47,9 +54,10 @@ extension Icon
             icon in
             VStack
             {
-                icon.image
-                Text(icon.rawValue)
+                icon.image.imageScale(.large)
+                Text(icon.rawValue).font(.caption)
             }
+            .padding()
         }
     }
 }
