@@ -13,6 +13,9 @@ import SwiftUI
 ///
 struct StatusPost: View
 {
+    /// Type for emoji table
+    typealias EmojiUrlTable = CustomEmojiText.EmojiUrlTable
+    
     /// The Status for this view
     var status: MastodonStatus
     
@@ -26,6 +29,18 @@ struct StatusPost: View
     /// Reblogged account, if reblogged. Else author of original status
     var account: MastodonAccount {
         status.reblog?.account ?? status.account
+    }
+    
+    /// Custom emojis for this post
+    var emojis: EmojiUrlTable {
+        let allEmojis = post.emojis + account.emojis
+        print(allEmojis)
+        return allEmojis.reduce(into: EmojiUrlTable()) {
+            dict, emoji in
+            if let shortcode = emoji.shortcode {
+                dict[shortcode] = emoji.staticUrl
+            }
+        }
     }
     
     // Init
@@ -68,7 +83,7 @@ struct StatusPost: View
             VStack(alignment: .leading)
             {
                 // Display name
-                Text(account.displayName)
+                CustomEmojiText(account.displayName, emojiUrls: emojis)
                     .font(.headline)
                     .lineLimit(1)
                 HStack
