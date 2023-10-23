@@ -34,7 +34,6 @@ struct StatusPost: View
     /// Custom emojis for this post
     var emojis: EmojiUrlTable {
         let allEmojis = post.emojis + account.emojis
-        print(allEmojis)
         return allEmojis.reduce(into: EmojiUrlTable()) {
             dict, emoji in
             if let shortcode = emoji.shortcode {
