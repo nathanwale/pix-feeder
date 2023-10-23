@@ -50,11 +50,14 @@ struct CustomEmojiText: View
     let emojiUrls: EmojiUrlTable
     let errorImage = Icon.notFound.uiImage!
     let fontSize = UIFont.preferredFont(forTextStyle: .body).pointSize
+    let text: String
         
     @State private var emojiImages: EmojiImageTable?
+    @State private var lineHeight = UIFont.preferredFont(forTextStyle: .body).pointSize
     
     init(_ text: String, emojiUrls: EmojiUrlTable)
     {
+        self.text = text
         tokens = CustomEmojiParser(string: text).tokenise()
         self.emojiUrls = emojiUrls
     }
@@ -71,10 +74,20 @@ struct CustomEmojiText: View
             emojiImages = await fetchEmojis()
         }
     }
-    
+        
     var placeHolder: some View
     {
         Text("...")
+            .background {
+                GeometryReader
+                {
+                    geo in
+                    Color.clear
+                        .onAppear {
+                            lineHeight = geo.size.height
+                        }
+                }
+            }
     }
     
     private func textWithFetchedEmojis(emojis: EmojiImageTable) -> some View
@@ -85,7 +98,7 @@ struct CustomEmojiText: View
                     let uiImage = emojis[name] ?? errorImage
                     let image = Image(uiImage: uiImage ?? errorImage).resizable()
                     let textView = Text(image)
-                        .baselineOffset(fontSize * -0.2)
+                        .baselineOffset(lineHeight * -0.2)
                     return $0 + textView
                 case .text(let text):
                     return $0 + Text(text)
@@ -115,7 +128,7 @@ struct CustomEmojiText: View
             let imageView = Image(uiImage: originalImage)
                 .resizable()
                 .scaledToFit()
-                .frame(height: fontSize)
+                .frame(height: lineHeight)
             let renderer = await ImageRenderer(content: imageView)
             if let image = await renderer.uiImage {
                 return image
@@ -146,6 +159,7 @@ struct CustomEmojiText: View
         CustomEmojiText("This one doesn't have any emojis", emojiUrls: [:])
         Divider()
         CustomEmojiText("Some larger text emoji! :ablobcatangel:", emojiUrls: emojis)
-            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+            .font(.title)
+        Spacer()
     }
 }
