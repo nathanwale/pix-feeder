@@ -8,18 +8,24 @@
 import SwiftUI
 import RegexBuilder
 
+///
+/// Parse text to find custom emoji
+///
 struct CustomEmojiParser
 {
+    /// String to parse
     let string: String
     
-    var regex = /:(.*):/.repetitionBehavior(.reluctant)
+    /// regex to find custom emoji
+    let regex = /:(.*):/.repetitionBehavior(.reluctant)
     
+    /// A Token found by parser
     enum Token {
         case text(String)
         case emoji(String)
     }
     
-    
+    /// Convert text to Tokens
     func tokenise() -> [Token]
     {
         var tokens = [Token]()
@@ -40,21 +46,39 @@ struct CustomEmojiParser
     }
 }
 
-struct CustomEmojiText: View 
+
+///
+/// Display text with custom emoji inserted
+///
+struct CustomEmojiText: View
 {
+    /// Mapping of Emoji names to image URLs
     typealias EmojiUrlTable = [String: URL?]
+    
+    /// Mapping of Emoji names to images
     typealias EmojiImageTable = [String: UIImage?]
     
+    /// Tokens found by parser
     private let tokens: [CustomEmojiParser.Token]
     
+    /// URLs for emoji names
     let emojiUrls: EmojiUrlTable
+    
+    /// Image to use for image loading errors
     let errorImage = Icon.notFound.uiImage!
-    let fontSize = UIFont.preferredFont(forTextStyle: .body).pointSize
+    
+    /// Original text before parsing
     let text: String
-        
+    
+    /// Images for emoji names
     @State private var emojiImages: EmojiImageTable?
+    
+    /// Line height, caclulated on appearance
     @State private var lineHeight = UIFont.preferredFont(forTextStyle: .body).pointSize
     
+    /// Init
+    /// - text: Text to parse and display
+    /// - emojiUrls: Emoji names with associated image URLs
     init(_ text: String, emojiUrls: EmojiUrlTable)
     {
         self.text = text
@@ -62,6 +86,7 @@ struct CustomEmojiText: View
         self.emojiUrls = emojiUrls
     }
     
+    /// Body view
     var body: some View
     {
         Group {
@@ -75,21 +100,26 @@ struct CustomEmojiText: View
         }
     }
         
+    /// Placeholder to display while parsing text
+    // Also reads the line height
     var placeHolder: some View
     {
         Text("...")
             .background {
+                // For reading the line height
                 GeometryReader
                 {
                     geo in
                     Color.clear
                         .onAppear {
+                            // assign line height
                             lineHeight = geo.size.height
                         }
                 }
             }
     }
     
+    /// Fetch emojis and build final text view
     private func textWithFetchedEmojis(emojis: EmojiImageTable) -> some View
     {
         tokens.reduce(Text("")) {
@@ -106,6 +136,7 @@ struct CustomEmojiText: View
         }
     }
     
+    /// Fetch all emojis in `emojiUrls`
     func fetchEmojis() async -> EmojiImageTable
     {
         var result = EmojiImageTable()
@@ -116,6 +147,9 @@ struct CustomEmojiText: View
         return result
     }
     
+    /// Fetch an emoji
+    /// - name: name of the emoji
+    /// - url: URL of the emoji image
     func fetchEmoji(name: String, url: URL?) async throws -> UIImage?
     {
         var image: UIImage?
@@ -129,6 +163,7 @@ struct CustomEmojiText: View
                 .resizable()
                 .scaledToFit()
                 .frame(height: lineHeight)
+            // No idea what this "non-sendable" warning is about
             let renderer = await ImageRenderer(content: imageView)
             if let image = await renderer.uiImage {
                 return image
