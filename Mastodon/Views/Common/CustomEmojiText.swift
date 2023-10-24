@@ -8,43 +8,7 @@
 import SwiftUI
 import RegexBuilder
 
-///
-/// Parse text to find custom emoji
-///
-struct CustomEmojiParser
-{
-    /// String to parse
-    let string: String
-    
-    /// regex to find custom emoji
-    let regex = /:(.*):/.repetitionBehavior(.reluctant)
-    
-    /// A Token found by parser
-    enum Token {
-        case text(String)
-        case emoji(String)
-    }
-    
-    /// Convert text to Tokens
-    func tokenise() -> [Token]
-    {
-        var tokens = [Token]()
-        let matches = string.matches(of: regex)
-        var lower = string.startIndex
-        var upper = string.endIndex
-        for match in matches {
-            let emojiName = match.output.1
-            upper = match.range.lowerBound
-            tokens.append(.text(String(string[lower..<upper])))
-            tokens.append(.emoji(String(emojiName)))
-            
-            lower = match.range.upperBound
-        }
-        tokens.append(.text(String(string[lower..<string.endIndex])))
-        
-        return tokens
-    }
-}
+
 
 
 ///
@@ -59,7 +23,7 @@ struct CustomEmojiText: View
     typealias EmojiImageTable = [String: UIImage?]
     
     /// Tokens found by parser
-    private let tokens: [CustomEmojiParser.Token]
+    private let tokens: [ParsedText.Token]
     
     /// URLs for emoji names
     let emojiUrls: EmojiUrlTable
@@ -82,7 +46,8 @@ struct CustomEmojiText: View
     init(_ text: String, emojiUrls: EmojiUrlTable)
     {
         self.text = text
-        tokens = CustomEmojiParser(string: text).tokenise()
+        let parsedText = ParsedText(plain: text)
+        tokens = parsedText.tokens
         self.emojiUrls = emojiUrls
     }
     
@@ -124,14 +89,21 @@ struct CustomEmojiText: View
     {
         tokens.reduce(Text("")) {
             switch $1 {
+                // Emojis
                 case .emoji(let name):
                     let uiImage = emojis[name] ?? errorImage
                     let image = Image(uiImage: uiImage ?? errorImage).resizable()
                     let textView = Text(image)
                         .baselineOffset(lineHeight * -0.2)
                     return $0 + textView
+                
+                // Plain text
                 case .text(let text):
                     return $0 + Text(text)
+                
+                // Ignore others, as we don't parse them
+                default:
+                    return $0 + Text("")
             }
         }
     }
