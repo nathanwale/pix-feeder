@@ -152,12 +152,8 @@ struct CustomEmojiText: View
 // MARK: - previews
 #Preview
 {
-    let emojis = [
-        "smile": URL(string: "https://files.mastodon.social/cache/custom_emojis/images/000/736/060/original/8297d56b528eb387.gif"),
-        "ablobcatangel": URL(string: "https://files.mastodon.social/cache/custom_emojis/images/000/471/468/original/db6a6fc28fd8387d.png"),
-        "nonbinary_flag": URL(string: "https://files.mastodon.social/cache/custom_emojis/images/000/444/562/original/2e03a662e42f72c9.png"),
-        "blobcatrainbow": URL(string: "https://files.mastodon.social/cache/custom_emojis/images/000/067/996/original/bab6232f6464d285.png"),
-    ]
+    let emojis = MastodonCustomEmoji.sampleEmojis
+    
     return VStack
     {
         CustomEmojiText("Hello! :smile: How's it going? A blob cat angel :ablobcatangel:! Non binary flag :nonbinary_flag:! A blob cat with rainbow :blobcatrainbow:! This one doesn't exist! On purpose! -->:nonexistant:<--", emojiUrls: emojis)

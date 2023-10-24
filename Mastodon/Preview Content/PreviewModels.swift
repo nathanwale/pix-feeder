@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - convenience functions
 extension JsonLoader
 {
     /// Load JSON data from preview folder.
@@ -19,6 +20,7 @@ extension JsonLoader
     }
 }
 
+// MARK: - Preview statuses
 extension MastodonStatus
 {
     /// Sample Statuses for previews
@@ -37,7 +39,7 @@ extension MastodonStatus
     }
 }
 
-
+// MARK: - Preview attachments
 extension MastodonMediaAttachment
 {
     /// Sample Attachments for previews
@@ -49,5 +51,16 @@ extension MastodonMediaAttachment
     static var previewImageAttachment: MastodonMediaAttachment {
         return previews[0]
     }
+}
 
+// MARK: - Preview custom emoji
+extension MastodonCustomEmoji
+{
+    /// Sample Emoji
+    static let sampleEmojis = [
+        "smile": URL(string: "https://files.mastodon.social/cache/custom_emojis/images/000/736/060/original/8297d56b528eb387.gif"),
+        "ablobcatangel": URL(string: "https://files.mastodon.social/cache/custom_emojis/images/000/471/468/original/db6a6fc28fd8387d.png"),
+        "nonbinary_flag": URL(string: "https://files.mastodon.social/cache/custom_emojis/images/000/444/562/original/2e03a662e42f72c9.png"),
+        "blobcatrainbow": URL(string: "https://files.mastodon.social/cache/custom_emojis/images/000/067/996/original/bab6232f6464d285.png"),
+    ]
 }
