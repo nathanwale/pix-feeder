@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import UIKit
+
 
 ///
 /// Display the content of a Status Post
@@ -28,7 +30,7 @@ struct StatusContent: View
     // Body
     var body: some View
     {
-        Text(parsedContent.attributedString ?? "<<unparseable>>")
+        CustomEmojiText(tokens: parsedContent.tokens, emojiUrls: MastodonCustomEmoji.sampleEmojis)
     }
 }
 
