@@ -12,14 +12,14 @@ import Foundation
 ///
 extension ParsedText
 {
+    /// regex to find custom emoji
+    static let emojiRegex = /:([^\s]*):/.repetitionBehavior(.reluctant)
+    
     /// Convert text to Tokens
     func parse(plain string: String) -> [Token]
     {
-        /// regex to find custom emoji
-        let emojiRegex = /:(.*):/.repetitionBehavior(.reluctant)
-        
         var tokens = [Token]()
-        let matches = string.matches(of: emojiRegex)
+        let matches = string.matches(of: ParsedText.emojiRegex)
         var lower = string.startIndex
         var upper = string.endIndex
         
