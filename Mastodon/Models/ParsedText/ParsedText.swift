@@ -20,7 +20,7 @@ struct ParsedText
         case hashTag(name: String, url: URL?)
         case link(url: URL?)
         case mention(name: String, url: URL?)
-        case emoji(String)
+        case emoji(name: String)
     }
     
     /// The input type
