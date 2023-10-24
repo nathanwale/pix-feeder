@@ -8,9 +8,6 @@
 import SwiftUI
 import RegexBuilder
 
-
-
-
 ///
 /// Display text with custom emoji inserted
 ///
@@ -31,23 +28,27 @@ struct CustomEmojiText: View
     /// Image to use for image loading errors
     let errorImage = Icon.notFound.uiImage!
     
-    /// Original text before parsing
-    let text: String
-    
     /// Images for emoji names
     @State private var emojiImages: EmojiImageTable?
     
     /// Line height, caclulated on appearance
     @State private var lineHeight = UIFont.preferredFont(forTextStyle: .body).pointSize
     
-    /// Init
+    /// Init from plain text
     /// - text: Text to parse and display
     /// - emojiUrls: Emoji names with associated image URLs
     init(_ text: String, emojiUrls: EmojiUrlTable)
     {
-        self.text = text
         let parsedText = ParsedText(plainText: text)
         tokens = parsedText.tokens
+        self.emojiUrls = emojiUrls
+    }
+    
+    /// Init from parsed tokens
+    /// - emojiUrls: Emoji names with associated image URLs
+    init(tokens: [ParsedText.Token], emojiUrls: EmojiUrlTable)
+    {
+        self.tokens = tokens
         self.emojiUrls = emojiUrls
     }
     
@@ -88,22 +89,20 @@ struct CustomEmojiText: View
     private func textWithFetchedEmojis(emojis: EmojiImageTable) -> some View
     {
         tokens.reduce(Text("")) {
-            switch $1 {
+            acc, token in
+            switch token {
                 // Emojis
                 case .emoji(let name):
                     let uiImage = emojis[name] ?? errorImage
                     let image = Image(uiImage: uiImage ?? errorImage).resizable()
                     let textView = Text(image)
                         .baselineOffset(lineHeight * -0.2)
-                    return $0 + textView
+                    return acc + textView
                 
-                // Plain text
-                case .text(let text):
-                    return $0 + Text(text)
-                
-                // Ignore others, as we don't parse them
+                // All others use `.attributedString`
                 default:
-                    return $0 + Text("")
+                    return acc + Text(token.attributedString)
+                
             }
         }
     }
@@ -145,7 +144,6 @@ struct CustomEmojiText: View
         }
         return image
     }
-    
 }
 
 
