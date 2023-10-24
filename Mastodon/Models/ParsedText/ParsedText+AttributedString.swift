@@ -83,8 +83,13 @@ extension ParsedText.Token
                 
             // Custom Emoji
             case .emoji(let name):
-                print("Emoji:", name)
-                return AttributedString("<<emoji: \(name)>>")
+                let attachment = NSTextAttachment(image: Icon.smile.uiImage!)
+                attachment.accessibilityLabel = "Smile"
+                let attributedString = AttributedString(
+                    "<<emoji: \(name) [\(UnicodeScalar(NSTextAttachment.character)!)]>>",
+                    attributes: AttributeContainer.attachment(attachment)
+                )
+                return attributedString
         }
     }
     
