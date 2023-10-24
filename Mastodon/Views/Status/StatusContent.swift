@@ -16,13 +16,13 @@ struct StatusContent: View
     let content: String
     
     /// Content after being parsed
-    let parsedContent: ParsedStatusContent
+    let parsedContent: ParsedText
     
     // Take HTML fragment as init
     init(_ content: String)
     {
         self.content = content
-        self.parsedContent = ParsedStatusContent(html: content)
+        self.parsedContent = ParsedText(html: content)
     }
         
     // Body
