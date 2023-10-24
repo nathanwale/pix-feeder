@@ -135,7 +135,7 @@ extension ParsedText
             default:
                 // assume plain text
                 let text = (try? node.outerHtml()) ?? ""
-                let parsedText = ParsedText(plain: text)
+                let parsedText = ParsedText(plainText: text)
                 return parsedText.tokens
         }
     }

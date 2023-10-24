@@ -16,7 +16,7 @@ extension ParsedText
     static let emojiRegex = /:([^\s]*):/.repetitionBehavior(.reluctant)
     
     /// Convert text to Tokens
-    func parse(plain string: String) -> [Token]
+    func parse(plainText string: String) -> [Token]
     {
         var tokens = [Token]()
         let matches = string.matches(of: ParsedText.emojiRegex)
@@ -27,7 +27,7 @@ extension ParsedText
             let emojiName = match.output.1
             upper = match.range.lowerBound
             tokens.append(.text(String(string[lower..<upper])))
-            tokens.append(.emoji(String(emojiName)))
+            tokens.append(.emoji(name: String(emojiName)))
             
             lower = match.range.upperBound
         }

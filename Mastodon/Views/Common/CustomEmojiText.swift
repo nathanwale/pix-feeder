@@ -46,7 +46,7 @@ struct CustomEmojiText: View
     init(_ text: String, emojiUrls: EmojiUrlTable)
     {
         self.text = text
-        let parsedText = ParsedText(plain: text)
+        let parsedText = ParsedText(plainText: text)
         tokens = parsedText.tokens
         self.emojiUrls = emojiUrls
     }

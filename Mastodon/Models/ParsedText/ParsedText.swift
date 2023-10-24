@@ -27,16 +27,16 @@ struct ParsedText
     enum Input
     {
         case html(String)
-        case plain(String)
+        case plainText(String)
     }
     
     /// Input to parse
     let input: Input
     
     /// Initialise with plain String input
-    init(plain: String)
+    init(plainText: String)
     {
-        input = .plain(plain)
+        input = .plainText(plainText)
     }
     
     /// Initialise with HTML input
@@ -57,8 +57,8 @@ struct ParsedText
                     return []
                 }
                 
-            case .plain(let plainText):
-                return parse(plain: plainText)
+            case .plainText(let plainText):
+                return parse(plainText: plainText)
         }
     }
 }
