@@ -83,13 +83,16 @@ extension ParsedText.Token
                 
             // Custom Emoji
             case .emoji(let name):
-                let attachment = NSTextAttachment(image: Icon.smile.uiImage!)
-                attachment.accessibilityLabel = "Smile"
-                let attributedString = AttributedString(
-                    "<<emoji: \(name) [\(UnicodeScalar(NSTextAttachment.character)!)]>>",
-                    attributes: AttributeContainer.attachment(attachment)
-                )
-                return attributedString
+                // Note, this doesn't actually work at the moment.
+                // Image attachments don't appear in SwiftUI
+//                let attachment = NSTextAttachment(image: Icon.smile.uiImage!)
+//                attachment.accessibilityLabel = "Smile"
+//                let attributedString = AttributedString(
+//                    "<<emoji: \(name) [\(UnicodeScalar(NSTextAttachment.character)!)]>>",
+//                    attributes: AttributeContainer.attachment(attachment)
+//                )
+//                return attributedString
+                return AttributedString("<<emoji: \(name)>>")
         }
     }
     
