@@ -121,6 +121,7 @@ struct CustomEmojiText: View
     /// Fetch an emoji
     /// - name: name of the emoji
     /// - url: URL of the emoji image
+    @MainActor
     func fetchEmoji(name: String, url: URL?) async throws -> UIImage?
     {
         var image: UIImage?
@@ -130,13 +131,14 @@ struct CustomEmojiText: View
         {
             let request = ImageRequest(url: url)
             let originalImage = try await request.send()
+            
             let imageView = Image(uiImage: originalImage)
                 .resizable()
                 .scaledToFit()
                 .frame(height: lineHeight)
-            // No idea what this "non-sendable" warning is about
-            let renderer = await ImageRenderer(content: imageView)
-            if let image = await renderer.uiImage {
+            
+            let renderer = ImageRenderer(content: imageView)
+            if let image = renderer.uiImage {
                 return image
             }
         } else {
