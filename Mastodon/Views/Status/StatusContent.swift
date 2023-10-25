@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import UIKit
+
 
 ///
 /// Display the content of a Status Post
@@ -16,19 +18,19 @@ struct StatusContent: View
     let content: String
     
     /// Content after being parsed
-    let parsedContent: ParsedStatusContent
+    let parsedContent: ParsedText
     
     // Take HTML fragment as init
     init(_ content: String)
     {
         self.content = content
-        self.parsedContent = ParsedStatusContent(html: content)
+        self.parsedContent = ParsedText(html: content)
     }
         
     // Body
     var body: some View
     {
-        Text(parsedContent.attributedString ?? "<<unparseable>>")
+        CustomEmojiText(tokens: parsedContent.tokens, emojiUrls: MastodonCustomEmoji.sampleEmojis)
     }
 }
 
