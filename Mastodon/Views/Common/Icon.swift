@@ -21,6 +21,8 @@ enum Icon: String, CaseIterable
     case share = "square.and.arrow.up"
     case smile = "face.smiling"
     case notFound = "questionmark.square.dashed"
+    case chevronDown = "chevron.down"
+    case chevronUp = "chevron.up"
 }
 
 // Icon extensions
