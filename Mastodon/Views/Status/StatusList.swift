@@ -15,7 +15,8 @@ struct StatusList: View
     /// Statuses to display
     let statuses: [MastodonStatus]
     
-    @State private var path = NavigationPath()
+    /// App Navigation
+    @State private var navigation = AppNavigation()
     
     /// Initialise with list of statuses
     init(_ statuses: [MastodonStatus]) {
@@ -25,7 +26,7 @@ struct StatusList: View
     /// Body
     var body: some View
     {
-        NavigationStack(path: $path)
+        NavigationStack(path: $navigation.path)
         {
             List(statuses)
             {
@@ -42,6 +43,7 @@ struct StatusList: View
             }
             .listStyle(.plain)
         }
+        .environmentObject(navigation)
     }
 }
 
