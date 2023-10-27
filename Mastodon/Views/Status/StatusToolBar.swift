@@ -7,20 +7,29 @@
 
 import SwiftUI
 
-struct StatusToolBar: View 
+///
+/// Allows user interaction with a Status
+///
+struct StatusToolBar: View
 {
+    /// The status this toolbar belongs to
     let status: MastodonStatus
+
     
+    /// Body view
     var body: some View
     {
+        // Actions that have status counts associated with them
         let actionsWithCounts = [
             ("Show replies", Icon.replies, showReplies, status.repliesCount),
             ("Reblog", Icon.reblog, reblogStatus, status.reblogsCount),
             ("Favourite", Icon.favourite, favouriteStatus, status.favouritesCount),
         ]
         
+        // Button stack
         HStack
         {
+            // Buttons with counts (comment, boost, fave)
             ForEach(actionsWithCounts, id: \.0)
             {
                 (label, icon, action, count) in
@@ -32,9 +41,11 @@ struct StatusToolBar: View
             }
             Spacer()
             Divider()
+            // Share button
             Button("Share", systemImage: Icon.share.rawValue, action: shareStatus)
             Divider()
             Spacer()
+            // Reply button
             Button("Reply", systemImage: Icon.reply.rawValue, action: replyToStatus)
                 .labelStyle(.titleAndIcon)
         }
@@ -45,13 +56,22 @@ struct StatusToolBar: View
         .fixedSize(horizontal: false, vertical: true)
     }
     
+    /// A button with a count (eg. replies)
     struct ButtonWithCount: View
     {
+        /// Button label. May not be shown
         let label: String
+        
+        /// Icon to display. May not be shount
         let icon: Icon
+        
+        /// Count to show next to button
         let count: Int
+        
+        /// Action called on button tap
         let action: () -> Void
         
+        /// Body view
         var body: some View
         {
             Button(label, systemImage: icon.rawValue, action: action)
@@ -99,6 +119,8 @@ extension StatusToolBar
     }
 }
 
+
+// MARK: - previews
 #Preview("Status tool bar", traits: .fixedLayout(width: 400, height: 50)) {
     StatusToolBar(status: MastodonStatus.preview)
         .padding(20)
