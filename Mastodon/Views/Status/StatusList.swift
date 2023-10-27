@@ -7,16 +7,22 @@
 
 import SwiftUI
 
-struct StatusList: View 
+///
+/// The default list of statuses, navigable to view replies, etc.
+///
+struct StatusList: View
 {
+    /// Statuses to display
     let statuses: [MastodonStatus]
     
     @State private var path = NavigationPath()
     
+    /// Initialise with list of statuses
     init(_ statuses: [MastodonStatus]) {
         self.statuses = statuses
     }
     
+    /// Body
     var body: some View
     {
         NavigationStack(path: $path)
@@ -38,6 +44,9 @@ struct StatusList: View
         }
     }
 }
+
+
+// MARK: - previews
 
 #Preview("Many posts") {
     StatusList(MastodonStatus.previews)
