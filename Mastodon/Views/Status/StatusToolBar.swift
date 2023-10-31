@@ -14,7 +14,9 @@ struct StatusToolBar: View
 {
     /// The status this toolbar belongs to
     let status: MastodonStatus
-
+    
+    /// Navigation object
+    @EnvironmentObject private var navigation: AppNavigation
     
     /// Body view
     var body: some View
@@ -91,7 +93,8 @@ extension StatusToolBar
     /// Show replies for this status
     func showReplies()
     {
-        print("Showing replies...")
+        navigation.push(status)
+        print("Showing \(status.repliesCount ?? 0) replies...")
     }
     
     /// Reply to this status
@@ -124,4 +127,5 @@ extension StatusToolBar
 #Preview("Status tool bar", traits: .fixedLayout(width: 400, height: 50)) {
     StatusToolBar(status: MastodonStatus.preview)
         .padding(20)
+        .environmentObject(AppNavigation())
 }
