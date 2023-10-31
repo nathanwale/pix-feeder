@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 ///
 /// Represents the state of navigation in the App.
@@ -14,7 +15,7 @@ import Foundation
 final class AppNavigation: ObservableObject, Codable
 {
     /// The navigation path as a list of Statuses
-    @Published var path: [MastodonStatus]
+    @Published var path: NavigationPath
     
     /// Coding keys for persistence
     enum CodingKeys: String, CodingKey
@@ -25,20 +26,32 @@ final class AppNavigation: ObservableObject, Codable
     /// Init with empty path
     init()
     {
-        path = []
+        path = NavigationPath()
     }
         
     /// Decode from persisted object
     required init(from decoder: Decoder) throws
     {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        path = try container.decode([MastodonStatus].self, forKey: CodingKeys.navigationPath)
+        let codableRepresentation = try container.decode(NavigationPath.CodableRepresentation.self, forKey: CodingKeys.navigationPath)
+        path = NavigationPath(codableRepresentation)
     }
     
     /// Encode into persisted object
     func encode(to encoder: Encoder) throws
     {
+        // get codable representation
+        guard let representation = path.codable else {
+            return
+        }
+        
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(path, forKey: CodingKeys.navigationPath)
+        try container.encode(representation, forKey: CodingKeys.navigationPath)
+    }
+    
+    /// Push a new navigation item onto the Navigation Path
+    func push(_ navigationItem: any Hashable)
+    {
+        path.append(navigationItem)
     }
 }
