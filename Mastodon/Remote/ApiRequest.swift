@@ -7,39 +7,39 @@
 
 import Foundation
 
-//
-// Protocol for an API Request
-//  - subPath: path to endpoint, excludes domain, path prefix, and query string
-//  - queryItems: optional list of query items
-//  - request: request as URLRequest
-//  - postData: optional data to post in a POST request
-//
+///
+/// Protocol for an API Request
+///  - subPath: path to endpoint, excludes domain, path prefix, and query string
+///  - queryItems: optional list of query items
+///  - request: request as URLRequest
+///  - postData: optional data to post in a POST request
+///
 protocol ApiRequest
 {
-    // type of response
+    /// type of response
     associatedtype Response
     
-    // path to endpoint, excludes domain and query string
+    /// path to endpoint, excludes domain and query string
     var endpoint: String { get }
     
-    // optional list of query items
+    /// optional list of query items
     var queryItems: [URLQueryItem]? { get }
     
-    // request as URLRequest
+    /// request as URLRequest
     var request: URLRequest { get }
     
-    // optional data to post in a POST request
+    /// optional data to post in a POST request
     var postData: Data? { get }
 }
 
 
-//
-// Error returned on bad API Requests
-//  - notFound: There's nothing at this location
-//  - requestFailed: The request failed, probably for an unknown reason
-//  - badResponse: HTTP response code was not 200 OK.
-//        statusCode is the response code returned
-//
+///
+/// Error returned on bad API Requests
+///  - notFound: There's nothing at this location
+///  - requestFailed: The request failed, probably for an unknown reason
+///  - badResponse: HTTP response code was not 200 OK.
+///        statusCode is the response code returned
+///
 enum ApiRequestError: Error, Equatable
 {
     case notFound
