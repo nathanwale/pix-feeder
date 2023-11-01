@@ -53,8 +53,8 @@ enum ApiRequestError: Error, Equatable
 ///
 extension ApiRequest
 {
-    var host: String { "www.themealdb.com" }
-    var pathPrefix: String { "/api/json/v1/1" }
+    var host: String { "mastodon.social" }
+    var pathPrefix: String { "/api/v1/" }
 }
 
 
