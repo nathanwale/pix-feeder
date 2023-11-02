@@ -114,6 +114,9 @@ extension MastodonInstance
         
         /// Message to be shown when registrations are closed
         let message: String?
+        
+        /// Undocumented `url` paramater. Optional
+        let url: URL?
     }
     
     ///
