@@ -38,8 +38,14 @@ extension MastodonInstanceConfiguration
     /// URLs of interest for client apps
     struct Urls: Codable
     {
-        /// Websockets url for connecting to the streaming API
-        let streamingApi: URL
+        /// Status. Not described in docs. Optional? Who knows.
+        let status: URL?
+        
+        /// Websockets url for connecting to the streaming API. Optional
+        let streaming: URL?
+        
+        /// Alias for `streaming` as described in docs. Optional
+        let streamingApi: URL?
     }
     
     /// Limits relating to accounts
