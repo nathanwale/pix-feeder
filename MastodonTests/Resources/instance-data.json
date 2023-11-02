@@ -1,26 +1,30 @@
 {
-  "uri": "mastodon.social",
+  "domain": "mastodon.social",
   "title": "Mastodon",
-  "short_description": "The original server operated by the Mastodon gGmbH non-profit",
-  "description": "",
-  "email": "staff@mastodon.social",
   "version": "4.2.1+pr-27634-22407c7",
-  "urls": {
-    "streaming_api": "wss://streaming.mastodon.social"
+  "source_url": "https://github.com/mastodon/mastodon",
+  "description": "The original server operated by the Mastodon gGmbH non-profit",
+  "usage": {
+    "users": {
+      "active_month": 276655
+    }
   },
-  "stats": {
-    "user_count": 1669096,
-    "status_count": 72675585,
-    "domain_count": 64668
+  "thumbnail": {
+    "url": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+    "blurhash": "UeKUpFxuo~R%0nW;WCnhF6RjaJt757oJodS$",
+    "versions": {
+      "@1x": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+      "@2x": "https://files.mastodon.social/site_uploads/files/000/000/001/@2x/57c12f441d083cde.png"
+    }
   },
-  "thumbnail": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
   "languages": [
     "en"
   ],
-  "registrations": true,
-  "approval_required": false,
-  "invites_enabled": true,
   "configuration": {
+    "urls": {
+      "streaming": "wss://streaming.mastodon.social",
+      "status": "https://status.mastodon.social"
+    },
     "accounts": {
       "max_featured_tags": 10
     },
@@ -71,49 +75,61 @@
       "max_characters_per_option": 50,
       "min_expiration": 300,
       "max_expiration": 2629746
+    },
+    "translation": {
+      "enabled": true
     }
   },
-  "contact_account": {
-    "id": "13179",
-    "username": "Mastodon",
-    "acct": "Mastodon",
-    "display_name": "Mastodon",
-    "locked": false,
-    "bot": false,
-    "discoverable": true,
-    "group": false,
-    "created_at": "2016-11-23T00:00:00.000Z",
-    "note": "<p>Free, open-source decentralized social media platform.</p>",
-    "url": "https://mastodon.social/@Mastodon",
-    "uri": "https://mastodon.social/users/Mastodon",
-    "avatar": "https://files.mastodon.social/accounts/avatars/000/013/179/original/b4ceb19c9c54ec7e.png",
-    "avatar_static": "https://files.mastodon.social/accounts/avatars/000/013/179/original/b4ceb19c9c54ec7e.png",
-    "header": "https://files.mastodon.social/accounts/headers/000/013/179/original/1375be116fbe0f1d.png",
-    "header_static": "https://files.mastodon.social/accounts/headers/000/013/179/original/1375be116fbe0f1d.png",
-    "followers_count": 809877,
-    "following_count": 3,
-    "statuses_count": 253,
-    "last_status_at": "2023-10-28",
-    "noindex": false,
-    "emojis": [],
-    "roles": [],
-    "fields": [
-      {
-        "name": "Homepage",
-        "value": "<a href=\"https://joinmastodon.org\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">joinmastodon.org</span><span class=\"invisible\"></span></a>",
-        "verified_at": "2018-10-31T04:11:00.076+00:00"
-      },
-      {
-        "name": "Patreon",
-        "value": "<a href=\"https://patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
-        "verified_at": null
-      },
-      {
-        "name": "GitHub",
-        "value": "<a href=\"https://github.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">github.com/mastodon</span><span class=\"invisible\"></span></a>",
-        "verified_at": "2023-07-21T13:27:45.996+00:00"
-      }
-    ]
+  "registrations": {
+    "enabled": true,
+    "approval_required": false,
+    "message": null,
+    "url": null
+  },
+  "contact": {
+    "email": "staff@mastodon.social",
+    "account": {
+      "id": "13179",
+      "username": "Mastodon",
+      "acct": "Mastodon",
+      "display_name": "Mastodon",
+      "locked": false,
+      "bot": false,
+      "discoverable": true,
+      "group": false,
+      "created_at": "2016-11-23T00:00:00.000Z",
+      "note": "<p>Free, open-source decentralized social media platform.</p>",
+      "url": "https://mastodon.social/@Mastodon",
+      "uri": "https://mastodon.social/users/Mastodon",
+      "avatar": "https://files.mastodon.social/accounts/avatars/000/013/179/original/b4ceb19c9c54ec7e.png",
+      "avatar_static": "https://files.mastodon.social/accounts/avatars/000/013/179/original/b4ceb19c9c54ec7e.png",
+      "header": "https://files.mastodon.social/accounts/headers/000/013/179/original/1375be116fbe0f1d.png",
+      "header_static": "https://files.mastodon.social/accounts/headers/000/013/179/original/1375be116fbe0f1d.png",
+      "followers_count": 809878,
+      "following_count": 3,
+      "statuses_count": 253,
+      "last_status_at": "2023-10-28",
+      "noindex": false,
+      "emojis": [],
+      "roles": [],
+      "fields": [
+        {
+          "name": "Homepage",
+          "value": "<a href=\"https://joinmastodon.org\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">joinmastodon.org</span><span class=\"invisible\"></span></a>",
+          "verified_at": "2018-10-31T04:11:00.076+00:00"
+        },
+        {
+          "name": "Patreon",
+          "value": "<a href=\"https://patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
+          "verified_at": null
+        },
+        {
+          "name": "GitHub",
+          "value": "<a href=\"https://github.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\" translate=\"no\"><span class=\"invisible\">https://</span><span class=\"\">github.com/mastodon</span><span class=\"invisible\"></span></a>",
+          "verified_at": "2023-07-21T13:27:45.996+00:00"
+        }
+      ]
+    }
   },
   "rules": [
     {
