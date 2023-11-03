@@ -7,6 +7,9 @@
 
 import Foundation
 
+fileprivate let sampleUserId = "110528637375951012" // this is @nwale
+fileprivate let sampleHost = "mastodon.social"
+
 // MARK: - convenience functions
 extension JsonLoader
 {
@@ -36,6 +39,31 @@ extension MastodonStatus
     /// Sample Context
     static var previewContext: MastodonStatus.Context {
         return JsonLoader.fromSample("status-context")
+    }
+}
+
+// MARK: - sample timeline requests
+extension UserTimelineRequest
+{
+    /// Online user
+    static func sampleFetch() async throws -> [MastodonStatus]
+    {
+        return try await Self.sample.send()
+    }
+    
+    /// Sample user statuses request
+    static var sample: Self
+    {
+        Self(host: sampleHost, userid: sampleUserId)
+    }
+}
+
+extension PublicTimelineRequest
+{
+    /// Sample user statuses request
+    static var sample: Self
+    {
+        Self(host: sampleHost)
     }
 }
 
