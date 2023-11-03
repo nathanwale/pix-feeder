@@ -23,7 +23,7 @@ final class MastodonAccountTests: XCTestCase
         XCTAssertEqual(account.bot, false)
         XCTAssertEqual(account.discoverable, true)
         XCTAssertEqual(account.group, false)
-        XCTAssertEqual(account.createdAt.description, "2023-06-12 00:00:00 +0000")
+        XCTAssertEqual(account.createdAt.description, "2023-10-24 07:11:40 +0000")
         XCTAssertEqual(account.note, "<p>“Queen Latifa, give me strength!” — Gene Belcher</p>")
         XCTAssertEqual(account.url, URL(string: "https://mastodon.social/@nwale"))
         XCTAssertEqual(account.uri, URL(string: "https://mastodon.social/users/nwale"))
