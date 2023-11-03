@@ -19,6 +19,9 @@ protocol ApiRequest
     /// type of response
     associatedtype Response
     
+    /// host of instance
+    var host: String { get }
+    
     /// path to endpoint, excludes domain and query string
     var endpoint: String { get }
     
@@ -49,22 +52,14 @@ enum ApiRequestError: Error, Equatable
 
 
 ///
-/// Configure ApiRequest for this service
-///
-extension ApiRequest
-{
-    var host: String { "mastodon.social" }
-    var pathPrefix: String { "/api/v1/" }
-}
-
-
-///
 /// Defaults for ApiRequest
 ///
 extension ApiRequest
 {
     var queryItems: [URLQueryItem]? { nil }
     var postData: Data? { nil }
+    var version: String { "v1" }
+    var pathPrefix: String { "api" }
 }
 
 
@@ -81,7 +76,7 @@ extension ApiRequest
         components.scheme = "https"
         components.host = host
         
-        components.path = "\(pathPrefix)/\(endpoint)"
+        components.path = "/\(pathPrefix)/\(version)/\(endpoint)"
         components.queryItems = queryItems
         
         // assign url components to request
@@ -150,12 +145,8 @@ extension ApiRequest where Response: Decodable
             throw ApiRequestError.badResponse(statusCode: httpResponse.statusCode)
         }
         
-        // decode response into JSON an return decoded object as Response type
-        let decoder = JSONDecoder()
-        
-        // convert from snake_case to camelCase
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
+        // decode response into JSON and return decoded object as Response type
+        let decoder = JsonLoader.decoder
         let decoded = try decoder.decode(Response.self, from: data)
         
         return decoded
