@@ -137,7 +137,7 @@ struct StatusPost: View
 
 
 // MARK: - previews
-#Preview
+#Preview("With samples")
 {
     List(MastodonStatus.previews)
     {
