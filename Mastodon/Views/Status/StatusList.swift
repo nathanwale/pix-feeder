@@ -13,14 +13,33 @@ import SwiftUI
 struct StatusList: View
 {
     /// Statuses to display
-    let statuses: [MastodonStatus]
+    @State var statuses = [MastodonStatus]()
+        
+    /// What's the source of Statuses?
+    /// - preloaded: A preloaded array of MastodonStatuses
+    /// - online: A MastodonStatusRequest for fetching Statuses from online
+    enum Source
+    {
+        case preloaded([MastodonStatus])
+        case online(any MastodonStatusRequest)
+    }
+    
+    /// The configured Source
+    let source: Source
     
     /// App Navigation
     @EnvironmentObject private var navigation: AppNavigation
     
-    /// Initialise with list of statuses
-    init(_ statuses: [MastodonStatus]) {
-        self.statuses = statuses
+    /// Initialise with preloaded list of statuses
+    init(_ statuses: [MastodonStatus])
+    {
+        source = .preloaded(statuses)
+    }
+    
+    /// Initialise with API Request to fetch Statuses from online
+    init(request: any MastodonStatusRequest)
+    {
+        source = .online(request)
     }
     
     /// Body
@@ -45,13 +64,38 @@ struct StatusList: View
                     .listRowSeparator(.hidden)
                     .listRowInsets(insets)
             }
+            // List styling
             .listStyle(.plain)
             .buttonStyle(.borderless)
+            // Pass on navigation object
             .environmentObject(navigation)
+            // Configure navigation
             .navigationDestination(for: MastodonStatus.self) {
                 status in
                 StatusDetail(status)
             }
+            // Load source of Statuses
+            .task {
+                statuses = await loadSource()
+            }
+        }
+    }
+    
+    /// Load source of Statuses.
+    /// If online, will send API request
+    /// Otherwise will immediately return the preloaded Statuses
+    func loadSource() async -> [MastodonStatus]
+    {
+        switch source {
+            case .preloaded(let array):
+                return array
+            case .online(let request):
+                do {
+                    return try await request.send()
+                } catch {
+                    print(error)
+                    return []
+                }
         }
     }
 }
@@ -59,8 +103,20 @@ struct StatusList: View
 
 // MARK: - previews
 
-#Preview("Many posts") {
+#Preview("Sample posts") {
     StatusList(MastodonStatus.previews)
+        .environmentObject(AppNavigation())
+}
+
+#Preview("Online user posts")
+{
+    StatusList(request: UserTimelineRequest.sample)
+        .environmentObject(AppNavigation())
+}
+
+#Preview("Online public timeline")
+{
+    StatusList(request: PublicTimelineRequest.sample)
         .environmentObject(AppNavigation())
 }
 
