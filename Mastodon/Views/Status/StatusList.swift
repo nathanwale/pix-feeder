@@ -27,8 +27,19 @@ struct StatusList: View
     /// The configured Source
     let source: Source
     
+    /// Index of Status in the middle of the screen
+    @State var middleStatusIdentifier: MastodonStatus.Identifier?
+    
     /// App Navigation
     @EnvironmentObject private var navigation: AppNavigation
+    
+    /// Insets for Status Posts
+    let statusInsets = EdgeInsets(
+        top: 10,
+        leading: 0,
+        bottom: 20,
+        trailing: 0
+    )
     
     /// Initialise with preloaded list of statuses
     init(_ statuses: [MastodonStatus])
@@ -51,18 +62,35 @@ struct StatusList: View
             {
                 status in
                 
-                // insets for post
-                let insets = EdgeInsets(
-                    top: 10,
-                    leading: 0,
-                    bottom: 20,
-                    trailing: 0
-                )
-                
                 // Show status
                 StatusPost(status)
                     .listRowSeparator(.hidden)
-                    .listRowInsets(insets)
+                    .listRowInsets(statusInsets)
+                    // is this post in the middle?
+                    .background {
+                        // need to read the geometry to tell which post
+                        // is in the middle of the screen
+                        GeometryReader
+                        {
+                            geo in
+                            let bgColour = status.id == middleStatusIdentifier
+                                ? Color.teal.opacity(0.1)
+                                : Color.clear
+                            Color(bgColour)
+                                .onChange(of: geo.frame(in: .global).midY)
+                                {
+                                    let midY = geo.frame(in: .global).midY
+                                    let screenHeight = UIScreen.main.bounds.height
+                                    let screenMidY = screenHeight / 2
+                                    let threshold: CGFloat = screenHeight / 10
+                                    let isInMiddle = (midY > screenMidY - threshold)
+                                                        && (midY < screenMidY + threshold)
+                                    if isInMiddle {
+                                        middleStatusIdentifier = status.id
+                                    }
+                                }
+                        }
+                    }
             }
             // List styling
             .listStyle(.plain)
