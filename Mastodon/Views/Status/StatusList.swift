@@ -14,21 +14,12 @@ struct StatusList: View
 {
     /// Statuses to display
     @State var statuses = [MastodonStatus]()
-        
-    /// What's the source of Statuses?
-    /// - preloaded: A preloaded array of MastodonStatuses
-    /// - online: A MastodonStatusRequest for fetching Statuses from online
-    enum Source
-    {
-        case preloaded([MastodonStatus])
-        case online(any MastodonStatusRequest)
-    }
     
-    /// The configured Source
-    let source: Source
+    /// Request for fetching Statuses
+    var request: (any MastodonStatusRequest)?
     
-    /// Index of Status in the middle of the screen
-    @State var middleStatusIdentifier: MastodonStatus.Identifier?
+    /// Focused Status
+    @State var focusedStatus: MastodonStatus?
     
     /// App Navigation
     @EnvironmentObject private var navigation: AppNavigation
@@ -44,13 +35,13 @@ struct StatusList: View
     /// Initialise with preloaded list of statuses
     init(_ statuses: [MastodonStatus])
     {
-        source = .preloaded(statuses)
+        self.statuses = statuses
     }
     
     /// Initialise with API Request to fetch Statuses from online
     init(request: any MastodonStatusRequest)
     {
-        source = .online(request)
+        self.request = request
     }
     
     /// Body
@@ -66,31 +57,8 @@ struct StatusList: View
                 StatusPost(status)
                     .listRowSeparator(.hidden)
                     .listRowInsets(statusInsets)
-                    // is this post in the middle?
-                    .background {
-                        // need to read the geometry to tell which post
-                        // is in the middle of the screen
-                        GeometryReader
-                        {
-                            geo in
-                            let bgColour = status.id == middleStatusIdentifier
-                                ? Color.teal.opacity(0.1)
-                                : Color.clear
-                            Color(bgColour)
-                                .onChange(of: geo.frame(in: .global).midY)
-                                {
-                                    let midY = geo.frame(in: .global).midY
-                                    let screenHeight = UIScreen.main.bounds.height
-                                    let screenMidY = screenHeight / 2
-                                    let threshold: CGFloat = screenHeight / 10
-                                    let isInMiddle = (midY > screenMidY - threshold)
-                                                        && (midY < screenMidY + threshold)
-                                    if isInMiddle {
-                                        middleStatusIdentifier = status.id
-                                    }
-                                }
-                        }
-                    }
+                    // colour and event to update focused status
+                    .background(background(status: status))
             }
             // List styling
             .listStyle(.plain)
@@ -104,26 +72,54 @@ struct StatusList: View
             }
             // Load source of Statuses
             .task {
-                statuses = await loadSource()
+                await loadStatusesIfRequired()
             }
         }
     }
     
-    /// Load source of Statuses.
-    /// If online, will send API request
-    /// Otherwise will immediately return the preloaded Statuses
-    func loadSource() async -> [MastodonStatus]
+    /// background colour and event to update focused status
+    func background(status: MastodonStatus) -> some View
     {
-        switch source {
-            case .preloaded(let array):
-                return array
-            case .online(let request):
-                do {
-                    return try await request.send()
-                } catch {
-                    print(error)
-                    return []
+        // need to read the geometry to tell which post
+        // is in the middle of the screen
+        GeometryReader
+        {
+            geo in
+            
+            // background colour for focused status
+            let bgColour = (status == focusedStatus)
+                ? Color.teal.opacity(0.1)
+                : Color.clear
+            
+            // assign colour and set up event
+            Color(bgColour)
+                .onChange(of: geo.frame(in: .global).midY)
+            {
+                let midY = geo.frame(in: .global).midY
+                let screenHeight = UIScreen.main.bounds.height
+                let screenMidY = screenHeight / 2
+                let threshold: CGFloat = screenHeight / 10
+                let isInMiddle = (midY > screenMidY - threshold)
+                && (midY < screenMidY + threshold)
+                if isInMiddle {
+                    focusedStatus = status
                 }
+            }
+        }
+    }
+    
+    /// Load Statuses if required
+    func loadStatusesIfRequired() async
+    {
+        if let request {
+            var source = StatusSource(statuses: statuses, request: request)
+            do {
+                statuses = try await source.balance()
+            } catch {
+                print(error)
+            }
+        } else {
+            print("no request object to send")
         }
     }
 }
