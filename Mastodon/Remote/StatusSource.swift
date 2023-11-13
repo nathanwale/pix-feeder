@@ -16,18 +16,18 @@ struct StatusSource
     var statuses: [MastodonStatus]
     
     /// An API request object for fetching statuses
-    var request: (any MastodonStatusRequest)?
+    var request: any MastodonStatusRequest
     
     /// The Status
-    var focusedStatus: MastodonStatus {
-        didSet {
-            balance()
-        }
-    }
+    var focusedStatus: MastodonStatus?
     
     /// Index of focused Status
-    var focusedStatusIndex: Int? {
-        statuses.firstIndex(of: focusedStatus)
+    private var focusedStatusIndex: Int? {
+        if let focusedStatus {
+            statuses.firstIndex(of: focusedStatus)
+        } else {
+            nil
+        }
     }
     
     /// How many Statuses are newer in the timeline than the focused Status?
@@ -48,8 +48,25 @@ struct StatusSource
         batchSize * 2
     }
     
+    /// Newest Statis
+    var newestStatus: MastodonStatus? {
+        statuses.max { $0.id > $1.id }
+    }
+    
+    /// Oldest Status
+    var oldestStatus: MastodonStatus? {
+        statuses.min { $0.id < $1.id }
+    }
+    
+    // MARK: - methods
+    /// Is this status focused?
+    func isFocused(status: MastodonStatus) -> Bool
+    {
+        status == focusedStatus
+    }
+    
     /// Fetch or drop Statuses based on where we are in the feed.
-    func balance()
+    mutating func balance() async throws -> [MastodonStatus]
     {
         // index of current status, else zero
         let currentIndex = focusedStatusIndex ?? 0
@@ -61,45 +78,61 @@ struct StatusSource
         
         // fetch older statuses
         if shouldFetchOlder {
-            fetchOlder()
+            statuses += try await fetchOlder()
         }
         
         // fetch newer statuses
         if shouldFetchNewer {
-            fetchNewer()
+            statuses += try await fetchNewer()
         }
+        
+        // drop older statuses
+        if shouldDropOlder {
+            statuses = dropOld()
+        }
+        
+        return statuses
     }
     
     /// Fetch older Statuses
-    func fetchOlder()
+    func fetchOlder() async throws -> [MastodonStatus]
     {
         if let lastStatusId = statuses.last?.id {
             print("Fetching statuses older than #\(lastStatusId)")
+            return []
         } else {
-            fetchInitial()
+            return try await fetchInitial()
         }
     }
     
     /// Fetch newer Statuses
-    func fetchNewer()
+    func fetchNewer() async throws -> [MastodonStatus]
     {
-        if let firstStatusId = statuses.first?.id {
+        if let firstStatusId = statuses.first?.id,
+           let newestStatus
+        {
             print("Fetching statuses newer than #\(firstStatusId)")
+            request.timeFrame = .before(newestStatus)
+            return try await request.send()
         } else {
-            fetchInitial()
+            return try await fetchInitial()
         }
     }
     
     /// Fetch initial batch of Statuses
-    func fetchInitial()
+    func fetchInitial() async throws -> [MastodonStatus]
     {
         print("Fetching initial batch of statuses")
+        let newStatuses = try await request.send()
+        print("...Fetched \(newStatuses.count) statuses")
+        print(newStatuses.map { $0.account.displayName })
+        return newStatuses
     }
     
     /// Drop old statuses
-    mutating func dropOld()
+    func dropOld() -> [MastodonStatus]
     {
-        statuses.removeLast(batchSize)
         print("dropping old indices")
+        return statuses.dropLast(batchSize)
     }
 }
