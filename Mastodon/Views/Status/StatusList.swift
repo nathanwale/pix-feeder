@@ -35,7 +35,7 @@ struct StatusList: View
     /// Initialise with preloaded list of statuses
     init(_ statuses: [MastodonStatus])
     {
-        self.statuses = statuses
+        _statuses = .init(initialValue: statuses)
     }
     
     /// Initialise with API Request to fetch Statuses from online
