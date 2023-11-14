@@ -91,7 +91,8 @@ struct StatusSource
             statuses = dropOld()
         }
         
-        return statuses
+        // sort newest first before returning
+        return statuses.sorted { $0.createdAt > $1.createdAt }
     }
     
     /// Fetch older Statuses
@@ -106,7 +107,7 @@ struct StatusSource
     }
     
     /// Fetch newer Statuses
-    func fetchNewer() async throws -> [MastodonStatus]
+    mutating func fetchNewer() async throws -> [MastodonStatus]
     {
         if let firstStatusId = statuses.first?.id,
            let newestStatus
