@@ -92,3 +92,14 @@ extension MastodonCustomEmoji
         "blobcatrainbow": URL(string: "https://files.mastodon.social/cache/custom_emojis/images/000/067/996/original/bab6232f6464d285.png"),
     ]
 }
+
+
+// MARK: - mock request api
+struct MockRequestApi: MastodonStatusRequest
+{
+    var host: String = ""
+    
+    var timeFrame: ApiQueryTimeFrame?
+    
+    var endpoint: String = ""
+}
