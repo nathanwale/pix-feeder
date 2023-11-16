@@ -133,6 +133,9 @@ extension ApiRequest where Response: Decodable
     func send() async throws -> Response
     {
         // send request, assign data and response
+        if host == "" {
+            print("\t*** Host blank, so using `localhost` ***")
+        }
         let (data, response) = try await URLSession.shared.data(for: request)
         
         // ensure response is valid HTTP, else throw error
