@@ -13,13 +13,7 @@ import SwiftUI
 struct StatusList: View
 {
     /// Statuses to display
-    @State var statuses = [MastodonStatus]()
-    
-    /// Request for fetching Statuses
-    var request: (any MastodonStatusRequest)?
-    
-    /// Focused Status
-    @State var focusedStatus: MastodonStatus?
+    @StateObject var source: StatusSource
     
     /// App Navigation
     @EnvironmentObject private var navigation: AppNavigation
@@ -31,25 +25,13 @@ struct StatusList: View
         bottom: 20,
         trailing: 0
     )
-    
-    /// Initialise with preloaded list of statuses
-    init(_ statuses: [MastodonStatus])
-    {
-        _statuses = .init(initialValue: statuses)
-    }
-    
-    /// Initialise with API Request to fetch Statuses from online
-    init(request: any MastodonStatusRequest)
-    {
-        self.request = request
-    }
-    
+        
     /// Body
     var body: some View
     {
         NavigationStack(path: $navigation.path)
         {
-            List(statuses)
+            List(source.statuses)
             {
                 status in
                 
@@ -87,7 +69,7 @@ struct StatusList: View
             geo in
             
             // background colour for focused status
-            let bgColour = (status == focusedStatus)
+            let bgColour = (status == source.focusedStatus)
                 ? Color.teal.opacity(0.1)
                 : Color.clear
             
@@ -102,7 +84,10 @@ struct StatusList: View
                 let isInMiddle = (midY > screenMidY - threshold)
                 && (midY < screenMidY + threshold)
                 if isInMiddle {
-                    focusedStatus = status
+                    source.focusedStatus = status
+                    Task {
+                        await loadStatusesIfRequired()
+                    }
                 }
             }
         }
@@ -111,15 +96,10 @@ struct StatusList: View
     /// Load Statuses if required
     func loadStatusesIfRequired() async
     {
-        if let request {
-            var source = StatusSource(statuses: statuses, request: request)
-            do {
-                statuses = try await source.balance()
-            } catch {
-                print(error)
-            }
-        } else {
-            print("no request object to send")
+        do {
+            try await source.balance()
+        } catch {
+            print(error)
         }
     }
 }
@@ -127,24 +107,42 @@ struct StatusList: View
 
 // MARK: - previews
 
-#Preview("Sample posts") {
-    StatusList(MastodonStatus.previews)
+#Preview("Sample posts") 
+{
+    let source = StatusSource(
+        statuses: MastodonStatus.previews,
+        request: MockRequestApi())
+    
+    return StatusList(source: source)
         .environmentObject(AppNavigation())
 }
 
 #Preview("Online user posts")
 {
-    StatusList(request: UserTimelineRequest.sample)
+    let source = StatusSource(
+        statuses: [],
+        request: UserTimelineRequest.sample)
+    
+    return StatusList(source: source)
         .environmentObject(AppNavigation())
 }
 
 #Preview("Online public timeline")
 {
-    StatusList(request: PublicTimelineRequest.sample)
+    let source = StatusSource(
+        statuses: [],
+        request: PublicTimelineRequest.sample)
+    
+    return StatusList(source: source)
         .environmentObject(AppNavigation())
 }
 
-#Preview("Isolated post") {
-    StatusList(MastodonStatus.previews.filter { $0.id == "110879987501995566"})
+#Preview("Isolated post") 
+{
+    let source = StatusSource(
+        statuses: MastodonStatus.previews.filter { $0.id == "110879987501995566"},
+        request: MockRequestApi())
+    
+    return StatusList(source: source)
         .environmentObject(AppNavigation())
 }
