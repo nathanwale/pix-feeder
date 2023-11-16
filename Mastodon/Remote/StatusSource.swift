@@ -10,10 +10,10 @@ import Foundation
 ///
 /// A self-managing source of Statuses
 ///
-struct StatusSource
+class StatusSource: ObservableObject
 {
     /// The Statuses that have already been loaded
-    var statuses: [MastodonStatus]
+    @Published var statuses: [MastodonStatus]
     
     /// An API request object for fetching statuses
     var request: any MastodonStatusRequest
@@ -58,6 +58,12 @@ struct StatusSource
         statuses.min { $0.id < $1.id }
     }
     
+    init(statuses: [MastodonStatus], request: any MastodonStatusRequest)
+    {
+        self.statuses = statuses
+        self.request = request
+    }
+    
     // MARK: - methods
     /// Is this status focused?
     func isFocused(status: MastodonStatus) -> Bool
@@ -66,12 +72,19 @@ struct StatusSource
     }
     
     /// Fetch or drop Statuses based on where we are in the feed.
-    mutating func balance() async throws -> [MastodonStatus]
+    func balance() async throws
     {
         // index of current status, else zero
         let currentIndex = focusedStatusIndex ?? 0
         
         // conditions
+        print(
+            "Current index:", currentIndex,
+            "Statuses count:", statuses.count,
+            "Fetch threshold:", fetchThreshold,
+            "Drop threshold:", dropThreshold
+        )
+        
         let shouldFetchOlder = currentIndex > (statuses.count - fetchThreshold)
         let shouldFetchNewer = currentIndex < fetchThreshold
         let shouldDropOlder = currentIndex < (statuses.count - dropThreshold)
@@ -88,11 +101,11 @@ struct StatusSource
         
         // drop older statuses
         if shouldDropOlder {
-            statuses = dropOld()
+            dropOld()
         }
         
         // sort newest first before returning
-        return statuses.sorted { $0.createdAt > $1.createdAt }
+        statuses.sort { $0.createdAt > $1.createdAt }
     }
     
     /// Fetch older Statuses
@@ -107,12 +120,11 @@ struct StatusSource
     }
     
     /// Fetch newer Statuses
-    mutating func fetchNewer() async throws -> [MastodonStatus]
+    func fetchNewer() async throws -> [MastodonStatus]
     {
-        if let firstStatusId = statuses.first?.id,
-           let newestStatus
+        if let newestStatus
         {
-            print("Fetching statuses newer than #\(firstStatusId)")
+            print("Fetching statuses newer than #\(newestStatus.id!), by \(newestStatus.account.displayName ?? "<<unknown>>")")
             request.timeFrame = .before(newestStatus)
             return try await request.send()
         } else {
@@ -131,9 +143,9 @@ struct StatusSource
     }
     
     /// Drop old statuses
-    func dropOld() -> [MastodonStatus]
+    func dropOld()
     {
         print("dropping old indices")
-        return statuses.dropLast(batchSize)
+        statuses.removeLast(batchSize)
     }
 }
