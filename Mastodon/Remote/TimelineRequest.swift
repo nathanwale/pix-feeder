@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum ApiQueryTimeFrame {
+enum ApiQueryTimeFrame 
+{
     case before(MastodonStatus)
     case after(MastodonStatus)
     
@@ -79,3 +80,4 @@ struct UserTimelineRequest: MastodonStatusRequest
         "accounts/\(userid)/statuses"
     }
 }
+
