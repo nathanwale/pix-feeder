@@ -43,6 +43,7 @@ extension MastodonStatusRequest
     /// The max number of Statuses that will be returned
     var limit: Int { 20 }
     
+    /// query items
     var queryItems: [URLQueryItem]? {
         var items = [
             URLQueryItem(name: "limit", value: String(limit)),
