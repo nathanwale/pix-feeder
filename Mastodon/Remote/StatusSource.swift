@@ -86,17 +86,11 @@ class StatusSource: ObservableObject
         )
         
         let shouldFetchOlder = currentIndex > (statuses.count - fetchThreshold)
-        let shouldFetchNewer = currentIndex < fetchThreshold
         let shouldDropOlder = currentIndex < (statuses.count - dropThreshold)
         
         // fetch older statuses
         if shouldFetchOlder {
             statuses += try await fetchOlder()
-        }
-        
-        // fetch newer statuses
-        if shouldFetchNewer {
-            statuses += try await fetchNewer()
         }
         
         // drop older statuses
@@ -120,7 +114,7 @@ class StatusSource: ObservableObject
     }
     
     /// Fetch newer Statuses
-    func fetchNewer() async throws -> [MastodonStatus]
+    func subscribeToNew() async throws -> [MastodonStatus]
     {
         if let newestStatus
         {
