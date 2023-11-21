@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct MastodonApp: App {
+struct PixFeederApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

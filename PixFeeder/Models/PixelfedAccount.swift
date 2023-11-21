@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias MastodonAccountId = String
+typealias PixelfedAccountId = String
 typealias WebfingerAccount = String
 
 // MARK: - Entity
@@ -15,10 +15,10 @@ typealias WebfingerAccount = String
     Represents a Mastodon Account
         - Decoded from API described at: https://docs.joinmastodon.org/entities/Account/
  */
-class MastodonAccount: Codable
+class PixelfedAccount: Codable
 {
     /// Account ID
-    var id: MastodonAccountId!
+    var id: PixelfedAccountId!
     
     /// Username minus instance domain and `@`
     /// ..ie: `nwale`, not `@nwale@mastodon.social` or `@nwale`
@@ -59,7 +59,7 @@ class MastodonAccount: Codable
     var fields: [MastodonAccountField]!
     
     /// Any custom emoji to be used when rendering profile
-    var emojis: [MastodonCustomEmoji]!
+    var emojis: [PixelfedCustomEmoji]!
     
     /// Is this a self-identified automated account?
     var bot: Bool!
@@ -74,7 +74,7 @@ class MastodonAccount: Codable
     var noindex: Bool?
     
     /// New account if profile has moved. Otherwise `nil`
-    var moved: MastodonAccount?
+    var moved: PixelfedAccount?
     
     /// Has the account been suspended?
     var suspended: Bool?

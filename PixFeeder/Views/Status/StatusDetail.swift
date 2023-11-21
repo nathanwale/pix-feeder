@@ -9,21 +9,21 @@ import SwiftUI
 
 struct StatusDetail: View 
 {
-    let status: MastodonStatus
-    let context: MastodonStatus.Context?
+    let status: PixelfedStatus
+    let context: PixelfedStatus.Context?
     @Namespace var currentStatusId
     
-    var ancestors: [MastodonStatus]
+    var ancestors: [PixelfedStatus]
     {
         context?.ancestors ?? []
     }
     
-    var descendants: [MastodonStatus]
+    var descendants: [PixelfedStatus]
     {
         context?.descendants ?? []
     }
     
-    init(_ status: MastodonStatus, context: MastodonStatus.Context? = nil)
+    init(_ status: PixelfedStatus, context: PixelfedStatus.Context? = nil)
     {
         self.status = status
         self.context = context
@@ -70,7 +70,7 @@ struct StatusDetail: View
         .background(Color.secondary)
     }
     
-    func statusList(_ statuses: [MastodonStatus]) -> some View
+    func statusList(_ statuses: [PixelfedStatus]) -> some View
     {
         VStack
         {
@@ -85,7 +85,7 @@ struct StatusDetail: View
 #Preview 
 {
     StatusDetail(
-        MastodonStatus.preview,
-        context: MastodonStatus.previewContext
+        PixelfedStatus.preview,
+        context: PixelfedStatus.previewContext
     )
 }

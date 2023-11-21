@@ -152,7 +152,7 @@ struct CustomEmojiText: View
 // MARK: - previews
 #Preview
 {
-    let emojis = MastodonCustomEmoji.sampleEmojis
+    let emojis = PixelfedCustomEmoji.sampleEmojis
     
     return VStack
     {

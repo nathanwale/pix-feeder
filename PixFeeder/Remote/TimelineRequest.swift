@@ -9,8 +9,8 @@ import Foundation
 
 enum ApiQueryTimeFrame 
 {
-    case before(MastodonStatus)
-    case after(MastodonStatus)
+    case before(PixelfedStatus)
+    case after(PixelfedStatus)
     
     var queryItem: URLQueryItem {
         switch self {
@@ -25,7 +25,7 @@ enum ApiQueryTimeFrame
 ///
 /// An API Request that returns MastodonStatuses
 ///
-protocol MastodonStatusRequest: ApiRequest where Response == [MastodonStatus] 
+protocol MastodonStatusRequest: ApiRequest where Response == [PixelfedStatus] 
 {
     /// The host of the server. Eg.: "mastodon.social"
     var host: String { get }
@@ -74,7 +74,7 @@ struct PublicTimelineRequest: MastodonStatusRequest
 struct UserTimelineRequest: MastodonStatusRequest
 {
     let host: String
-    let userid: MastodonAccountId
+    let userid: PixelfedAccountId
     var timeFrame: ApiQueryTimeFrame?
     
     var endpoint: String {

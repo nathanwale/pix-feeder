@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct MastodonFilter: Codable
+struct PixelfedFilter: Codable
 {
     /// ID of filter
     var id: Identifier
@@ -34,7 +34,7 @@ struct MastodonFilter: Codable
 
 
 // MARK: - inner types
-extension MastodonFilter
+extension PixelfedFilter
 {
     typealias Identifier = String
     
@@ -92,6 +92,6 @@ extension MastodonFilter
         var id: Identifier
         
         /// The ID of the Status that will be filtered
-        var statusId: MastodonStatus.Identifier
+        var statusId: PixelfedStatus.Identifier
     }
 }

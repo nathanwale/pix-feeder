@@ -30,7 +30,7 @@ struct StatusContent: View
     // Body
     var body: some View
     {
-        CustomEmojiText(tokens: parsedContent.tokens, emojiUrls: MastodonCustomEmoji.sampleEmojis)
+        CustomEmojiText(tokens: parsedContent.tokens, emojiUrls: PixelfedCustomEmoji.sampleEmojis)
     }
 }
 
@@ -38,7 +38,7 @@ struct StatusContent: View
 // MARK: - Previews
 #Preview 
 {
-    let contents = MastodonStatus.previews.map {
+    let contents = PixelfedStatus.previews.map {
         c in
         c.reblog?.content ?? c.content ?? ""
     }

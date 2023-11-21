@@ -11,7 +11,7 @@ import Foundation
     A custom emoji
         - Decoded from API as described at: https://docs.joinmastodon.org/entities/CustomEmoji/
  */
-struct MastodonCustomEmoji: Codable, Equatable
+struct PixelfedCustomEmoji: Codable, Equatable
 {
     /// The name of the emoji as referenced in posts
     let shortcode: String?

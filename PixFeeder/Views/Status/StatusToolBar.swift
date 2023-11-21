@@ -13,7 +13,7 @@ import SwiftUI
 struct StatusToolBar: View
 {
     /// The status this toolbar belongs to
-    let status: MastodonStatus
+    let status: PixelfedStatus
     
     /// Navigation object
     @EnvironmentObject private var navigation: AppNavigation
@@ -125,7 +125,7 @@ extension StatusToolBar
 
 // MARK: - previews
 #Preview("Status tool bar", traits: .fixedLayout(width: 400, height: 50)) {
-    StatusToolBar(status: MastodonStatus.preview)
+    StatusToolBar(status: PixelfedStatus.preview)
         .padding(20)
         .environmentObject(AppNavigation())
 }

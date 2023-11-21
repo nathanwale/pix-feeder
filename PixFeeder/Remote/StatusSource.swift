@@ -13,13 +13,13 @@ import Foundation
 class StatusSource: ObservableObject
 {
     /// The Statuses that have already been loaded
-    @Published var statuses: [MastodonStatus]
+    @Published var statuses: [PixelfedStatus]
     
     /// An API request object for fetching statuses
     var request: any MastodonStatusRequest
     
     /// The Status
-    var focusedStatus: MastodonStatus?
+    var focusedStatus: PixelfedStatus?
     
     /// Index of focused Status
     private var focusedStatusIndex: Int? {
@@ -49,16 +49,16 @@ class StatusSource: ObservableObject
     }
     
     /// Newest Statis
-    var newestStatus: MastodonStatus? {
+    var newestStatus: PixelfedStatus? {
         statuses.max { $0.id > $1.id }
     }
     
     /// Oldest Status
-    var oldestStatus: MastodonStatus? {
+    var oldestStatus: PixelfedStatus? {
         statuses.min { $0.id < $1.id }
     }
     
-    init(statuses: [MastodonStatus], request: any MastodonStatusRequest)
+    init(statuses: [PixelfedStatus], request: any MastodonStatusRequest)
     {
         self.statuses = statuses
         self.request = request
@@ -66,7 +66,7 @@ class StatusSource: ObservableObject
     
     // MARK: - methods
     /// Is this status focused?
-    func isFocused(status: MastodonStatus) -> Bool
+    func isFocused(status: PixelfedStatus) -> Bool
     {
         status == focusedStatus
     }
@@ -103,7 +103,7 @@ class StatusSource: ObservableObject
     }
     
     /// Fetch older Statuses
-    func fetchOlder() async throws -> [MastodonStatus]
+    func fetchOlder() async throws -> [PixelfedStatus]
     {
         if let lastStatusId = statuses.last?.id {
             print("Fetching statuses older than #\(lastStatusId)")
@@ -114,7 +114,7 @@ class StatusSource: ObservableObject
     }
     
     /// Fetch newer Statuses
-    func subscribeToNew() async throws -> [MastodonStatus]
+    func subscribeToNew() async throws -> [PixelfedStatus]
     {
         if let newestStatus
         {
@@ -127,7 +127,7 @@ class StatusSource: ObservableObject
     }
     
     /// Fetch initial batch of Statuses
-    func fetchInitial() async throws -> [MastodonStatus]
+    func fetchInitial() async throws -> [PixelfedStatus]
     {
         print("Fetching initial batch of statuses")
         let newStatuses = try await request.send()

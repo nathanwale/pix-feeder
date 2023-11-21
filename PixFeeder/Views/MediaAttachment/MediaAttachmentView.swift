@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MediaAttachmentView: View
 {
-    var attachment: MastodonMediaAttachment
+    var attachment: PixelfedMediaAttachment
     
     @State private var showFullDescription = false
     

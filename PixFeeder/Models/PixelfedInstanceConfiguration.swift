@@ -10,7 +10,7 @@ import Foundation
 ///
 /// Configuration of an Instance
 ///
-struct MastodonInstanceConfiguration: Codable
+struct PixelfedInstanceConfiguration: Codable
 {
     /// URLs of interest for client apps
     let urls: Urls
@@ -33,7 +33,7 @@ struct MastodonInstanceConfiguration: Codable
 
 
 // MARK: - inner types
-extension MastodonInstanceConfiguration
+extension PixelfedInstanceConfiguration
 {
     /// URLs of interest for client apps
     struct Urls: Codable

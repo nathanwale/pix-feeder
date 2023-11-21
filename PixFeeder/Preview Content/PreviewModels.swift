@@ -24,20 +24,20 @@ extension JsonLoader
 }
 
 // MARK: - Preview statuses
-extension MastodonStatus
+extension PixelfedStatus
 {
     /// Sample Statuses for previews
-    static var previews: [MastodonStatus] {
+    static var previews: [PixelfedStatus] {
         return JsonLoader.fromSample("multiple-statuses")
     }
     
     /// Sample Status for previews
-    static var preview: MastodonStatus {
+    static var preview: PixelfedStatus {
         return previews[0]
     }
     
     /// Sample Context
-    static var previewContext: MastodonStatus.Context {
+    static var previewContext: PixelfedStatus.Context {
         return JsonLoader.fromSample("status-context")
     }
 }
@@ -46,7 +46,7 @@ extension MastodonStatus
 extension UserTimelineRequest
 {
     /// Online user
-    static func sampleFetch() async throws -> [MastodonStatus]
+    static func sampleFetch() async throws -> [PixelfedStatus]
     {
         return try await Self.sample.send()
     }
@@ -68,21 +68,21 @@ extension PublicTimelineRequest
 }
 
 // MARK: - Preview attachments
-extension MastodonMediaAttachment
+extension PixelfedMediaAttachment
 {
     /// Sample Attachments for previews
-    static var previews: [MastodonMediaAttachment] {
+    static var previews: [PixelfedMediaAttachment] {
         return JsonLoader.fromSample("multiple-attachments")
     }
     
     /// Sample Image Attachment for previews
-    static var previewImageAttachment: MastodonMediaAttachment {
+    static var previewImageAttachment: PixelfedMediaAttachment {
         return previews[0]
     }
 }
 
 // MARK: - Preview custom emoji
-extension MastodonCustomEmoji
+extension PixelfedCustomEmoji
 {
     /// Sample Emoji
     static let sampleEmojis = [

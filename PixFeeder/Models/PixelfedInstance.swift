@@ -10,7 +10,7 @@ import Foundation
 ///
 /// A Mastodon Instance (or server)
 ///
-struct MastodonInstance: Codable
+struct PixelfedInstance: Codable
 {
     /// Domain name of the instance
     let domain: String
@@ -38,7 +38,7 @@ struct MastodonInstance: Codable
     let languages: [String]
     
     /// Configuration for this instance
-    let configuration: MastodonInstanceConfiguration
+    let configuration: PixelfedInstanceConfiguration
     
     /// Registration information about this instance
     let registrations: Registrations
@@ -52,7 +52,7 @@ struct MastodonInstance: Codable
 
 
 // MARK: - inner types
-extension MastodonInstance
+extension PixelfedInstance
 {
     ///
     /// Usage data for an Instance
@@ -128,7 +128,7 @@ extension MastodonInstance
         let email: String
         
         /// A Mastodon account that can be contacted about this instance
-        let account: MastodonAccount
+        let account: PixelfedAccount
     }
     
     ///

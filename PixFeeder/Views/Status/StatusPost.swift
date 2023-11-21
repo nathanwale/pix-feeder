@@ -17,17 +17,17 @@ struct StatusPost: View
     typealias EmojiUrlTable = CustomEmojiText.EmojiUrlTable
     
     /// The Status for this view
-    var status: MastodonStatus
+    var status: PixelfedStatus
     
     /// Post to be displayed.
     /// Reblogged Status if it exists, else the original Status
-    var post: MastodonStatus {
+    var post: PixelfedStatus {
         status.reblog ?? status
     }
     
     /// Main account to be displayed
     /// Reblogged account, if reblogged. Else author of original status
-    var account: MastodonAccount {
+    var account: PixelfedAccount {
         status.reblog?.account ?? status.account
     }
     
@@ -43,7 +43,7 @@ struct StatusPost: View
     }
     
     // Init
-    init(_ status: MastodonStatus)
+    init(_ status: PixelfedStatus)
     {
         self.status = status
     }
@@ -139,7 +139,7 @@ struct StatusPost: View
 // MARK: - previews
 #Preview("With samples")
 {
-    List(MastodonStatus.previews)
+    List(PixelfedStatus.previews)
     {
         status in
         StatusPost(status)

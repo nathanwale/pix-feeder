@@ -7,15 +7,15 @@
 
 import Foundation
 
-typealias MastodonMediaAttachmentId = String
+typealias PixelfedMediaAttachmentId = String
 
 ///
 /// Media Attachment on a Mastodon Status
 ///
-struct MastodonMediaAttachment: Codable, Equatable, Identifiable
+struct PixelfedMediaAttachment: Codable, Equatable, Identifiable
 {
     /// Identifier of attachment in database
-    var id: MastodonMediaAttachmentId
+    var id: PixelfedMediaAttachmentId
     
     /// Media type of attachment
     var type: MediaType

@@ -48,7 +48,7 @@ struct StatusList: View
             // Pass on navigation object
             .environmentObject(navigation)
             // Configure navigation
-            .navigationDestination(for: MastodonStatus.self) {
+            .navigationDestination(for: PixelfedStatus.self) {
                 status in
                 StatusDetail(status)
             }
@@ -60,7 +60,7 @@ struct StatusList: View
     }
     
     /// background colour and event to update focused status
-    func background(status: MastodonStatus) -> some View
+    func background(status: PixelfedStatus) -> some View
     {
         // need to read the geometry to tell which post
         // is in the middle of the screen
@@ -110,7 +110,7 @@ struct StatusList: View
 #Preview("Sample posts") 
 {
     let source = StatusSource(
-        statuses: MastodonStatus.previews,
+        statuses: PixelfedStatus.previews,
         request: MockRequestApi())
     
     return StatusList(source: source)
@@ -140,7 +140,7 @@ struct StatusList: View
 #Preview("Isolated post") 
 {
     let source = StatusSource(
-        statuses: MastodonStatus.previews.filter { $0.id == "110879987501995566"},
+        statuses: PixelfedStatus.previews.filter { $0.id == "110879987501995566"},
         request: MockRequestApi())
     
     return StatusList(source: source)

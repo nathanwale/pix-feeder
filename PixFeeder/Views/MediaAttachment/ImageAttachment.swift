@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImageAttachment: View
 {
-    var attachment: MastodonMediaAttachment
+    var attachment: PixelfedMediaAttachment
     var body: some View
     {
         WebImage(url: attachment.url)
@@ -18,6 +18,6 @@ struct ImageAttachment: View
 
 struct ImageAttachment_Previews: PreviewProvider {
     static var previews: some View {
-        ImageAttachment(attachment: MastodonMediaAttachment.previewImageAttachment)
+        ImageAttachment(attachment: PixelfedMediaAttachment.previewImageAttachment)
     }
 }

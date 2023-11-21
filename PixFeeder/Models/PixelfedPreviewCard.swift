@@ -14,7 +14,7 @@ import Foundation
  */
 
 // MARK: - entity
-struct MastodonPreviewCard
+struct PixelfedPreviewCard
 {
     /// Location of linked resource
     var url: URL
@@ -66,7 +66,7 @@ struct MastodonPreviewCard
 // MARK: - custom decoding
 // We need to do custom decoding because some URLs are empty strings!
 // (and are therefore decoded as `nil`)
-extension MastodonPreviewCard: Codable
+extension PixelfedPreviewCard: Codable
 {
     enum CodingKeys: String, CodingKey
     {
@@ -112,7 +112,7 @@ extension MastodonPreviewCard: Codable
 
 
 // MARK: - inner types
-extension MastodonPreviewCard
+extension PixelfedPreviewCard
 {
     ///
     /// Type of Preview Card

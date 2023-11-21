@@ -8,16 +8,16 @@
 import Foundation
 
 
-typealias MastodonPollId = String
+typealias PixelfedPollId = String
 
 /**
-    A Mastodon poll
+    A Pixelfed (or Mastodon) poll
         - Decoded from API as described at: https://docs.joinmastodon.org/entities/Poll/
  */
-struct MastodonPoll: Codable
+struct PixelfedPoll: Codable
 {
     /// Identifier of this poll
-    var id: MastodonPollId
+    var id: PixelfedPollId
     
     /// When the poll ends. Optional
     var expiresAt: Date?
@@ -39,7 +39,7 @@ struct MastodonPoll: Codable
     var options: [Options]
     
     /// Custom emojis used for rendering this poll
-    var emojis: [MastodonCustomEmoji]
+    var emojis: [PixelfedCustomEmoji]
     
     /// When called with a user token: has this user voted?
     /// Otherwise nil
@@ -52,7 +52,7 @@ struct MastodonPoll: Codable
 
 
 /// MARK: - inner types
-extension MastodonPoll
+extension PixelfedPoll
 {
     struct Options: Codable, Equatable
     {

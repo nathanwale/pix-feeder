@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MastodonStatus: Codable, Identifiable
+class PixelfedStatus: Codable, Identifiable
 {
     /// Status ID
     var id: Identifier!
@@ -19,7 +19,7 @@ class MastodonStatus: Codable, Identifiable
     var createdAt: Date!
     
     /// The MastodonAccount object that created this status
-    var account: MastodonAccount!
+    var account: PixelfedAccount!
     
     /// Content of status as HTML
     var content: String!
@@ -34,7 +34,7 @@ class MastodonStatus: Codable, Identifiable
     var spoilerText: String!
     
     /// Media attached to this Status
-    var mediaAttachments: [MastodonMediaAttachment]!
+    var mediaAttachments: [PixelfedMediaAttachment]!
     
     /// Application a status was posted with
     var application: Application?
@@ -46,7 +46,7 @@ class MastodonStatus: Codable, Identifiable
     var tags: [Tag]!
     
     /// Custom emojis used in this Status
-    var emojis: [MastodonCustomEmoji]!
+    var emojis: [PixelfedCustomEmoji]!
     
     /// Number of boosts this Status has received
     var reblogsCount: Int!
@@ -64,16 +64,16 @@ class MastodonStatus: Codable, Identifiable
     var inReplyToId: Identifier?
     
     /// Account ID this status is replying to. Optional
-    var inReplyToAccountId: MastodonAccountId?
+    var inReplyToAccountId: PixelfedAccountId?
     
     /// Status being reblogged. Optional
-    var reblog: MastodonStatus?
+    var reblog: PixelfedStatus?
     
     /// A Poll if attached. Otherwise `nil`
-    var poll: MastodonPoll?
+    var poll: PixelfedPoll?
     
     /// Preview card for linked content. Optional
-    var card: MastodonPreviewCard?
+    var card: PixelfedPreviewCard?
     
     /// Language of Status as ISO two-letter code. Optional
     var language: String?
@@ -105,7 +105,7 @@ class MastodonStatus: Codable, Identifiable
 
     
 // MARK: - inner types
-extension MastodonStatus
+extension PixelfedStatus
 {
     typealias Identifier = String
     
@@ -142,7 +142,7 @@ extension MastodonStatus
     struct Mention: Codable, Equatable
     {
         /// Account ID of the mentioned user
-        var id: MastodonAccountId
+        var id: PixelfedAccountId
         
         /// Username of the mentioned user
         var username: String
@@ -180,13 +180,13 @@ extension MastodonStatus
         }
         
         /// The filter that was matched
-        var filter: MastodonFilter
+        var filter: PixelfedFilter
         
         /// The keywords within the filter that were matched. Optional
         var keywordMatches: [String]?
         
         /// The status ID within the filter that was matched. Optional
-        var statusMatches: [MastodonStatus.Identifier]?
+        var statusMatches: [PixelfedStatus.Identifier]?
     }
     
     ///
@@ -195,18 +195,18 @@ extension MastodonStatus
     struct Context: Codable
     {
         /// The prior statuses in a thread
-        var ancestors: [MastodonStatus]
+        var ancestors: [PixelfedStatus]
         
         /// The later statuses in a thread
-        var descendants: [MastodonStatus]
+        var descendants: [PixelfedStatus]
     }
 }
 
 
 // MARK: - Hashable conformance
-extension MastodonStatus: Hashable, Equatable
+extension PixelfedStatus: Hashable, Equatable
 {
-    static func == (lhs: MastodonStatus, rhs: MastodonStatus) -> Bool 
+    static func == (lhs: PixelfedStatus, rhs: PixelfedStatus) -> Bool 
     {
         lhs.id == rhs.id
     }
