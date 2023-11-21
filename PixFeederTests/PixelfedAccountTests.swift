@@ -7,14 +7,14 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import Pixelfed
 
-final class MastodonAccountTests: XCTestCase
+final class PixelfedAccountTests: XCTestCase
 {
     func testDecodeSingleAccountFromJson() throws
     {
         let fileUrl = Bundle(for: Self.self).url(forResource: "single-account", withExtension: "json")!
-        let account: MastodonAccount = JsonLoader.fromLocalUrl(fileUrl)
+        let account: PixelfedAccount = JsonLoader.fromLocalUrl(fileUrl)
         XCTAssertEqual(account.id, "110528637375951012")
         XCTAssertEqual(account.username, "nwale")
         XCTAssertEqual(account.acct, "nwale")
@@ -49,7 +49,7 @@ final class MastodonAccountTests: XCTestCase
     func testDecodingManyAccounts() throws
     {
         let fileUrl = Bundle(for: Self.self).url(forResource: "multiple-accounts", withExtension: "json")!
-        let accounts: [MastodonAccount] = JsonLoader.fromLocalUrl(fileUrl)
+        let accounts: [PixelfedAccount] = JsonLoader.fromLocalUrl(fileUrl)
         XCTAssertEqual(accounts.count, 40)
     }
 }
