@@ -25,10 +25,23 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>Mastodon.xcscheme_^#shared#^_</key>
+		<key>PixFeeder.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>D62CCCF42AAAE66A00C61CCE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D6564B892AA94E88000E52BD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
