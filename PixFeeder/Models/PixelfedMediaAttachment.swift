@@ -1,6 +1,6 @@
 //
-//  MastodonMediaAttachment.swift
-//  Mastodon
+//  PixelfedMediaAttachment.swift
+//  PixFeeder
 //
 //  Created by Nathan Wale on 13/9/2023.
 //
@@ -10,7 +10,7 @@ import Foundation
 typealias PixelfedMediaAttachmentId = String
 
 ///
-/// Media Attachment on a Mastodon Status
+/// Media Attachment on a Pixelfed Status
 ///
 struct PixelfedMediaAttachment: Codable, Equatable, Identifiable
 {

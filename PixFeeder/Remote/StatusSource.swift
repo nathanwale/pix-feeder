@@ -1,6 +1,6 @@
 //
 //  StatusSource.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 8/11/2023.
 //

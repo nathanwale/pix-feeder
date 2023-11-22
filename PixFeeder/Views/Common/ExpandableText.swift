@@ -1,6 +1,6 @@
 //
 //  ExpandableText.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 25/9/2023.
 //

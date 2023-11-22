@@ -1,6 +1,6 @@
 //
 //  TestNavStackView.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 3/10/2023.
 //

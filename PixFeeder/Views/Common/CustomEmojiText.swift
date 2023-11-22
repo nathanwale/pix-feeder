@@ -1,6 +1,6 @@
 //
 //  CustomEmojiText.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 16/10/2023.
 //

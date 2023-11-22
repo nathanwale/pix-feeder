@@ -1,6 +1,6 @@
 //
-//  MastodonInstanceConfiguration.swift
-//  Mastodon
+//  PixelfedInstanceConfiguration.swift
+//  PixFeeder
 //
 //  Created by Nathan Wale on 1/11/2023.
 //

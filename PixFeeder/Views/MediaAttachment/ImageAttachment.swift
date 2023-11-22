@@ -1,6 +1,6 @@
 //
 //  ImageAttachment.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 21/9/2023.
 //

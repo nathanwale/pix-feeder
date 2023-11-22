@@ -1,6 +1,6 @@
 //
-//  MastodonInstance.swift
-//  Mastodon
+//  PixelfedInstance.swift
+//  PixFeeder
 //
 //  Created by Nathan Wale on 1/11/2023.
 //
@@ -8,7 +8,7 @@
 import Foundation
 
 ///
-/// A Mastodon Instance (or server)
+/// A Pixelfed (or Mastodon) Instance (or server)
 ///
 struct PixelfedInstance: Codable
 {
@@ -18,7 +18,7 @@ struct PixelfedInstance: Codable
     /// Name of the instance
     let title: String
     
-    /// Version of Mastodon installed
+    /// Version of Pixelfed installed
     let version: String
     
     /// Location of the source code for the software running this instance
@@ -127,7 +127,7 @@ extension PixelfedInstance
         /// Email address for this instance
         let email: String
         
-        /// A Mastodon account that can be contacted about this instance
+        /// A Pixelfed account that can be contacted about this instance
         let account: PixelfedAccount
     }
     

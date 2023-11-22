@@ -1,6 +1,6 @@
 //
 //  TimelineRequest.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 2/11/2023.
 //
@@ -23,7 +23,7 @@ enum ApiQueryTimeFrame
 }
 
 ///
-/// An API Request that returns MastodonStatuses
+/// An API Request that returns Statuses
 ///
 protocol MastodonStatusRequest: ApiRequest where Response == [PixelfedStatus] 
 {
@@ -35,7 +35,7 @@ protocol MastodonStatusRequest: ApiRequest where Response == [PixelfedStatus]
 }
 
 ///
-/// Defaults for MastodonStatusRequest
+/// Defaults for PixelfedStatusRequest
 /// - limit: The max number of Statuses that will be returned
 ///
 extension MastodonStatusRequest
@@ -60,7 +60,7 @@ extension MastodonStatusRequest
 ///
 /// A Public Timeline Request: will return public statuses that have just been posted
 ///
-struct PublicTimelineRequest: MastodonStatusRequest
+struct PublicTimelineRequest: PixelfedStatusRequest
 {
     let host: String
     let endpoint = "timelines/public"
@@ -69,9 +69,9 @@ struct PublicTimelineRequest: MastodonStatusRequest
 
 ///
 /// A Timeline Request for a particular account
-/// - userid: The Mastodon Account ID for the User
+/// - userid: The Account ID for the User
 ///
-struct UserTimelineRequest: MastodonStatusRequest
+struct UserTimelineRequest: PixelfedStatusRequest
 {
     let host: String
     let userid: PixelfedAccountId

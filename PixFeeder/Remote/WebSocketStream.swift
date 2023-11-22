@@ -1,6 +1,6 @@
 //
 //  WebSocketSubscription.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 16/11/2023.
 //

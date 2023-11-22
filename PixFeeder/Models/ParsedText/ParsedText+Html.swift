@@ -1,6 +1,6 @@
 //
 //  ParsedStatusContent.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 6/10/2023.
 //
@@ -9,7 +9,7 @@ import Foundation
 import SwiftSoup
 
 ///
-/// Mastodon Status Content that has been parsed into tokens
+/// Status Content that has been parsed into tokens
 /// Designed for converting into styled content
 ///
 extension ParsedText

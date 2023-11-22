@@ -1,6 +1,6 @@
 //
-//  MastodonCustomEmoji.swift
-//  Mastodon
+//  PixelfedCustomEmoji.swift
+//  PixFeeder
 //
 //  Created by Nathan Wale on 7/9/2023.
 //

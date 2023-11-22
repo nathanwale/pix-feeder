@@ -1,6 +1,6 @@
 //
-//  MastodonStatus.swift
-//  Mastodon
+//  PixFeederStatus.swift
+//  PixFeeder
 //
 //  Created by Nathan Wale on 7/9/2023.
 //
@@ -18,7 +18,7 @@ class PixelfedStatus: Codable, Identifiable
     /// The date this status was created
     var createdAt: Date!
     
-    /// The MastodonAccount object that created this status
+    /// The PixelfedAccount object that created this status
     var account: PixelfedAccount!
     
     /// Content of status as HTML
@@ -119,7 +119,7 @@ extension PixelfedStatus
     }
     
     ///
-    /// The visibility of a Mastodon Status
+    /// The visibility of a Pixelfed Status
     ///
     enum StatusVisibility: String, Codable
     {
@@ -190,7 +190,7 @@ extension PixelfedStatus
     }
     
     ///
-    /// The context of a Status in a Mastodon thread
+    /// The context of a Status in a Pixelfed thread
     ///
     struct Context: Codable
     {

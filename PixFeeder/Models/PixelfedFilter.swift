@@ -1,6 +1,6 @@
 //
-//  MastodonFilter.swift
-//  Mastodon
+//  PixelfedFilter.swift
+//  PixFeeder
 //
 //  Created by Nathan Wale on 17/9/2023.
 //

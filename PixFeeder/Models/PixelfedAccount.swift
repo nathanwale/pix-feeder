@@ -1,6 +1,6 @@
 //
-//  MastodonAccount.swift
-//  Mastodon
+//  PixelfedAccount.swift
+//  PixFeeder
 //
 //  Created by Nathan Wale on 7/9/2023.
 //
@@ -12,7 +12,7 @@ typealias WebfingerAccount = String
 
 // MARK: - Entity
 /**
-    Represents a Mastodon Account
+    Represents a Pixelfed (or Mastodon) Account
         - Decoded from API described at: https://docs.joinmastodon.org/entities/Account/
  */
 class PixelfedAccount: Codable

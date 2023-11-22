@@ -1,6 +1,6 @@
 //
 //  StatusView.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 19/9/2023.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 ///
-/// Represents a single Mastodon Status
+/// Represents a single Status
 /// - status: The Status to be displayed
 ///
 struct StatusPost: View

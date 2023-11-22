@@ -1,6 +1,6 @@
 //
-//  MastodonAccountTests.swift
-//  Mastodon
+//  PixelfedAccountTests.swift
+//  PixFeeder
 //
 //  Created by Nathan Wale on 8/9/2023.
 //

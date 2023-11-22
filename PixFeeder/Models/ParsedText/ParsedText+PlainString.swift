@@ -1,6 +1,6 @@
 //
 //  ParsedText+PlainString.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 24/10/2023.
 //

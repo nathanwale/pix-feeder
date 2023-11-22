@@ -1,6 +1,6 @@
 //
 //  AppNavigation.swift
-//  Mastodon
+//  PixFeeder
 //
 //  Created by Nathan Wale on 26/10/2023.
 //
