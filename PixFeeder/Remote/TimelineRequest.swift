@@ -25,7 +25,7 @@ enum ApiQueryTimeFrame
 ///
 /// An API Request that returns Statuses
 ///
-protocol MastodonStatusRequest: ApiRequest where Response == [PixelfedStatus] 
+protocol PixelfedStatusRequest: ApiRequest where Response == [PixelfedStatus] 
 {
     /// The host of the server. Eg.: "mastodon.social"
     var host: String { get }
@@ -38,7 +38,7 @@ protocol MastodonStatusRequest: ApiRequest where Response == [PixelfedStatus]
 /// Defaults for PixelfedStatusRequest
 /// - limit: The max number of Statuses that will be returned
 ///
-extension MastodonStatusRequest
+extension PixelfedStatusRequest
 {
     /// The max number of Statuses that will be returned
     var limit: Int { 20 }

@@ -16,7 +16,7 @@ class StatusSource: ObservableObject
     @Published var statuses: [PixelfedStatus]
     
     /// An API request object for fetching statuses
-    var request: any MastodonStatusRequest
+    var request: any PixelfedStatusRequest
     
     /// The Status
     var focusedStatus: PixelfedStatus?
@@ -58,7 +58,7 @@ class StatusSource: ObservableObject
         statuses.min { $0.id < $1.id }
     }
     
-    init(statuses: [PixelfedStatus], request: any MastodonStatusRequest)
+    init(statuses: [PixelfedStatus], request: any PixelfedStatusRequest)
     {
         self.statuses = statuses
         self.request = request

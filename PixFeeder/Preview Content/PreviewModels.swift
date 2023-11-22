@@ -95,7 +95,7 @@ extension PixelfedCustomEmoji
 
 
 // MARK: - mock request api
-struct MockRequestApi: MastodonStatusRequest
+struct MockRequestApi: PixelfedStatusRequest
 {
     var host: String = ""
     

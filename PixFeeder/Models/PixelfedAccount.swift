@@ -56,7 +56,7 @@ class PixelfedAccount: Codable
     var locked: Bool!
     
     /// Any ddditional Metadata that may be attached to an account as name/value pairs
-    var fields: [MastodonAccountField]!
+    var fields: [PixelfedAccountField]!
     
     /// Any custom emoji to be used when rendering profile
     var emojis: [PixelfedCustomEmoji]!
@@ -102,7 +102,7 @@ class PixelfedAccount: Codable
     /**
      Additional Metadata that may be attached to an account as name/value pairs
      */
-    struct MastodonAccountField: Codable
+    struct PixelfedAccountField: Codable
     {
         var name: String
         var value: String
