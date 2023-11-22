@@ -7,12 +7,12 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import PixFeeder
 
 fileprivate let sampleUserId = "110528637375951012" // this is @nwale
 fileprivate let sampleHost = "mastodon.social"
 
-final class MastodonOnlineStatusTests: XCTestCase
+final class PixelfedOnlineStatusTests: XCTestCase
 {
     
     func testOnlineStatuses() async throws

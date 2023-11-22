@@ -7,7 +7,7 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import PixFeeder
 
 final class DateFormattingTests: XCTestCase
 {    

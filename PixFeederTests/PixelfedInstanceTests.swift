@@ -7,11 +7,11 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import PixFeeder
 
-final class MastodonInstanceTests: XCTestCase
+final class PixelfedInstanceTests: XCTestCase
 {
-    var instance: MastodonInstance!
+    var instance: PixelfedInstance!
     
     override func setUp() async throws 
     {

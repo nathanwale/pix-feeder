@@ -7,11 +7,11 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import PixFeeder
 
-final class MastodonMediaAttachmentTests: XCTestCase
+final class PixelfedMediaAttachmentTests: XCTestCase
 {
-    var attachments = [MastodonMediaAttachment]()
+    var attachments = [PixelfedMediaAttachment]()
     
     override func setUp() async throws
     {
@@ -23,9 +23,9 @@ final class MastodonMediaAttachmentTests: XCTestCase
     {
         let attachment = attachments[0]
         XCTAssertEqual(attachment.id, "22345792")
-        XCTAssertEqual(attachment.type, MastodonMediaAttachment.MediaType.image)
+        XCTAssertEqual(attachment.type, PixelfedAttachment.MediaType.image)
         XCTAssertEqual(attachment.previewUrl, URL(string: "https://files.mastodon.social/media_attachments/files/022/345/792/small/57859aede991da25.jpeg"))
-        XCTAssertEqual(attachment.type, MastodonMediaAttachment.MediaType.image)
+        XCTAssertEqual(attachment.type, PixelfedMediaAttachment.MediaType.image)
         XCTAssertEqual(attachment.remoteUrl, nil)
         // text_url is deprecated
         // meta is yet to be implemented

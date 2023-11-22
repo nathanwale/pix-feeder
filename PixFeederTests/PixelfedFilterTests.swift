@@ -7,9 +7,9 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import PixFeeder
 
-final class MastodonFilterTests: XCTestCase
+final class PixelfedFilterTests: XCTestCase
 {
     func testDecodeSingleFilterFromJson() throws
     {
@@ -17,21 +17,21 @@ final class MastodonFilterTests: XCTestCase
             forResource: "single-filter",
             withExtension: "json")!
         
-        let filter: MastodonFilter = JsonLoader.fromLocalUrl(fileUrl)
+        let filter: PixelfedFilter = JsonLoader.fromLocalUrl(fileUrl)
         
-        let keyword = MastodonFilter.Keyword(
+        let keyword = PixelfedFilter.Keyword(
             id: "1197",
             keyword: "bad word",
             wholeWord: false
         )
         
-        let status = MastodonFilter.Status(id: "1", statusId: "109031743575371913")
+        let status = PixelfedFilter.Status(id: "1", statusId: "109031743575371913")
         
         XCTAssertEqual(filter.id, "19972")
         XCTAssertEqual(filter.title, "Test filter")
-        XCTAssertEqual(filter.context, [MastodonFilter.Context.home])
+        XCTAssertEqual(filter.context, [PixelfedFilter.Context.home])
         XCTAssertEqual(filter.expiresAt?.description, "2022-09-20 17:27:39 +0000")
-        XCTAssertEqual(filter.filterAction, MastodonFilter.Action.warn)
+        XCTAssertEqual(filter.filterAction, PixelfedFilter.Action.warn)
         XCTAssertEqual(filter.keywords, [keyword])
         XCTAssertEqual(filter.statuses, [status])
     }

@@ -7,14 +7,14 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import PixFeeder
 
-final class MastodonCustomEmojiTests: XCTestCase
+final class PixelfedCustomEmojiTests: XCTestCase
 {
     func testDecodeSingleCustomEmojiFromJson() throws
     {
         let fileUrl = Bundle(for: Self.self).url(forResource: "single-custom-emoji", withExtension: "json")!
-        let emoji: MastodonCustomEmoji = JsonLoader.fromLocalUrl(fileUrl)
+        let emoji: PixelfedCustomEmoji = JsonLoader.fromLocalUrl(fileUrl)
         
         XCTAssertEqual(emoji.shortcode, "blobaww")
         XCTAssertEqual(emoji.url, URL(string: "https://files.mastodon.social/custom_emojis/images/000/011/739/original/blobaww.png"))

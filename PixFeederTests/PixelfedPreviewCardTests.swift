@@ -7,11 +7,11 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import PixFeeder
 
-final class MastodonPreviewCardTests: XCTestCase
-{    
-    var cards = [MastodonPreviewCard]()
+final class PixelfedPreviewCardTests: XCTestCase
+{
+    var cards = [PixelfedPreviewCard]()
     
     override func setUp() async throws
     {
@@ -27,7 +27,7 @@ final class MastodonPreviewCardTests: XCTestCase
         XCTAssertEqual(card.url.description, "https://www.youtube.com/watch?v=OMv_EPMED8Y")
         XCTAssertEqual(card.title, "♪ Brand New Friend (Christmas Song!)")
         XCTAssertEqual(card.description, "")
-        XCTAssertEqual(card.type, MastodonPreviewCard.PreviewCardType.video)
+        XCTAssertEqual(card.type, PixelfedPreviewCard.PreviewCardType.video)
         XCTAssertEqual(card.authorName, "YOGSCAST Lewis & Simon")
         XCTAssertEqual(card.authorUrl?.description, "https://www.youtube.com/user/BlueXephos")
         XCTAssertEqual(card.providerName, "YouTube")

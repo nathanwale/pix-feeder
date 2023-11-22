@@ -7,11 +7,11 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import PixFeeder
 
-final class MastodonMediaStatusTests: XCTestCase
+final class PixelfedMediaStatusTests: XCTestCase
 {
-    var statuses = [MastodonStatus]()
+    var statuses = [PixelfedStatus]()
     
     override func setUp() async throws
     {

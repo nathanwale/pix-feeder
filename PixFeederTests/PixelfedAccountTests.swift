@@ -7,7 +7,7 @@
 
 import XCTest
 
-@testable import Pixelfed
+@testable import PixFeeder
 
 final class PixelfedAccountTests: XCTestCase
 {

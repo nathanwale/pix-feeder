@@ -7,14 +7,14 @@
 
 import XCTest
 
-@testable import Mastodon
+@testable import PixFeeder
 
-final class MastodonPollTests: XCTestCase
+final class PixelfedPollTests: XCTestCase
 {
     func testDecodeSinglePollFromJson() throws
     {
         let fileUrl = Bundle(for: Self.self).url(forResource: "single-poll", withExtension: "json")!
-        let poll: MastodonPoll = JsonLoader.fromLocalUrl(fileUrl)
+        let poll: PixelfedPoll = JsonLoader.fromLocalUrl(fileUrl)
         
         XCTAssertEqual(poll.id, "34830")
         XCTAssertEqual(poll.expiresAt!.description, "2019-12-05 04:05:08 +0000")
@@ -27,8 +27,8 @@ final class MastodonPollTests: XCTestCase
         XCTAssertEqual(poll.emojis, [])
         
         let options = [
-            MastodonPoll.Options(title: "accept", votesCount: 6),
-            MastodonPoll.Options(title: "deny", votesCount: 4),
+            PixelfedPoll.Options(title: "accept", votesCount: 6),
+            PixelfedPoll.Options(title: "deny", votesCount: 4),
         ]
         
         XCTAssertEqual(poll.options, options)
