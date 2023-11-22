@@ -23,7 +23,7 @@ final class PixelfedMediaAttachmentTests: XCTestCase
     {
         let attachment = attachments[0]
         XCTAssertEqual(attachment.id, "22345792")
-        XCTAssertEqual(attachment.type, PixelfedAttachment.MediaType.image)
+        XCTAssertEqual(attachment.type, PixelfedMediaAttachment.MediaType.image)
         XCTAssertEqual(attachment.previewUrl, URL(string: "https://files.mastodon.social/media_attachments/files/022/345/792/small/57859aede991da25.jpeg"))
         XCTAssertEqual(attachment.type, PixelfedMediaAttachment.MediaType.image)
         XCTAssertEqual(attachment.remoteUrl, nil)

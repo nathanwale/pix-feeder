@@ -28,7 +28,7 @@ final class PixelfedMediaStatusTests: XCTestCase
         XCTAssertEqual(status.inReplyToAccountId, nil)
         XCTAssertEqual(status.sensitive, false)
         XCTAssertEqual(status.spoilerText, "")
-        XCTAssertEqual(status.visibility, MastodonStatus.StatusVisibility.public)
+        XCTAssertEqual(status.visibility, PixelfedStatus.StatusVisibility.public)
         XCTAssertEqual(status.language, "en")
         XCTAssertEqual(status.uri,
             URL(string: "https://mastodon.social/users/Gargron/statuses/103270115826048975"))
