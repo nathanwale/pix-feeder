@@ -12,12 +12,6 @@ import Foundation
 ///
 struct PixelfedInstanceConfiguration: Codable
 {
-    /// URLs of interest for client apps
-    let urls: Urls
-    
-    /// Limits relating to accounts
-    let accounts: AccountPolicy
-    
     /// Limits relating to authoring Statuses
     let statuses: StatusPolicy
     
@@ -26,9 +20,7 @@ struct PixelfedInstanceConfiguration: Codable
     
     /// Limits relating to Polls on an Instance
     let polls: PollPolicy
-    
-    /// Policy related to translation for an Instance
-    let translation: TranslationPolicy
+
 }
 
 

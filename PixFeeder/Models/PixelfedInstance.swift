@@ -12,8 +12,8 @@ import Foundation
 ///
 struct PixelfedInstance: Codable
 {
-    /// Domain name of the instance
-    let domain: String
+    /// URI of the instance
+    let uri: URL
     
     /// Name of the instance
     let title: String
@@ -21,18 +21,14 @@ struct PixelfedInstance: Codable
     /// Version of Pixelfed installed
     let version: String
     
-    /// Location of the source code for the software running this instance
-    /// (This is a requirement of the AGPL license)
-    let sourceUrl: URL
-    
     /// Description of the instance
     let description: String
     
-    /// Usage data for this Instance
-    let usage: Usage
-    
+    /// Short description of the instance
+    let shortDescription: String
+        
     /// Thumbnail image for this Instance
-    let thumbnail: Thumbnail
+    let thumbnail: URL
     
     /// Primary languages of this Instance, as a list of two-letter codes
     let languages: [String]
@@ -40,11 +36,17 @@ struct PixelfedInstance: Codable
     /// Configuration for this instance
     let configuration: PixelfedInstanceConfiguration
     
-    /// Registration information about this instance
-    let registrations: Registrations
+    /// Are registrations open for this instance?
+    let registrations: Bool
     
-    /// Contact information for this instance
-    let contact: Contact
+    /// Is moderator approval required to register?
+    let approvalRequired: Bool
+    
+    /// Contact acount for this instance
+    let contactAccount: PixelfedAccount
+    
+    /// Email address for this instance
+    let email: String
     
     /// Rules for this instance
     let rules: [Rule]
@@ -56,6 +58,7 @@ extension PixelfedInstance
 {
     ///
     /// Usage data for an Instance
+    /// *This is in V2 of mastodon, but not V1 that Pixelfed uses*
     ///
     struct Usage: Codable
     {
@@ -72,6 +75,7 @@ extension PixelfedInstance
     
     ///
     /// Thumbnail image for an Instance
+    /// *This is in V2 of mastodon, but not V1 that Pixelfed uses*
     ///
     struct Thumbnail: Codable
     {
@@ -103,6 +107,7 @@ extension PixelfedInstance
     
     ///
     /// Info about registration for an Instance
+    /// *This is in V2 of mastodon, but not V1 that Pixelfed uses*
     ///
     struct Registrations: Codable
     {
@@ -121,6 +126,7 @@ extension PixelfedInstance
     
     ///
     /// Contact information for an Instance
+    /// *This is in V2 of mastodon, but not V1 that Pixelfed uses*
     ///
     struct Contact: Codable
     {
